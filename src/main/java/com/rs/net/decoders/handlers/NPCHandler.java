@@ -396,10 +396,10 @@ public class NPCHandler {
 			return -1; // TODO get burgh de rott transforming npc spawns
 		case 1866: // Pollniveach General Store", Market Seller. (3359, 2983, 0)
 			return -1; // TODO
-		case 1699: // Port Phasmatys General Store", Ghostly Shopkeeper. (3659,
+		//case 1699: // Port Phasmatys General Store", Ghostly Shopkeeper. (3659,
 			// 3473, 0) (Ghostly Amulet Needed to talk to him, run by
 			// one of the ghostly denizens).
-			return -1; // TODO
+		//	return -1; // TODO
 		case 3166: // Dodgy Mike's Second-hand Clothing", Mike. (3689, 2977, 0)
 			return -1; // TODO
 		case 2162: // Vermundi's Clothes Stall", Vermundia. (2887, 10189, 0)
