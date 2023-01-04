@@ -377,14 +377,6 @@ public class Ardougne  {
 		}
 	};
 
-	public static NPCClickHandler handleAemad = new NPCClickHandler(new Object[] { 590 }) {
-		@Override
-		public void handle(NPCClickEvent e) {
-			if (e.getOpNum() == 3)
-				ShopsHandler.openShop(e.getPlayer(), "aemads_adventuring_supplies");
-		}
-	};
-
 	public static NPCClickHandler handleSilkTrader = new NPCClickHandler(new Object[] { 574 }) {
 		@Override
 		public void handle(NPCClickEvent e) {
