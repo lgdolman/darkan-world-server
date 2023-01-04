@@ -392,9 +392,6 @@ public class NPCHandler {
 
 	public static int getShopIdForNpc(int npcId) {
 		switch (npcId) {
-		case 2154: // Gunslik's General Store "Gunslik's Assorted Items",
-			// Gunslik. (2868, 10190, 0)
-			return -1; // TODO
 		case 1254: // Razmire's General Store", Razmire Keelgan. (3488, 3296, 0)
 			return -1; // TODO get burgh de rott transforming npc spawns
 		case 1866: // Pollniveach General Store", Market Seller. (3359, 2983, 0)
