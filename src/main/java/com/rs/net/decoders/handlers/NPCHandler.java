@@ -44,7 +44,7 @@ import com.rs.game.content.world.unorganized_dialogue.FredaD;
 import com.rs.game.content.world.unorganized_dialogue.FremennikShipmaster;
 import com.rs.game.content.world.unorganized_dialogue.GeneralStore;
 import com.rs.game.content.world.unorganized_dialogue.Nurmof;
-import com.rs.game.content.world.unorganized_dialogue.OsmanD;
+import com.rs.game.content.world.npcs.alKharid.Osman;
 import com.rs.game.content.world.unorganized_dialogue.TanningD;
 import com.rs.game.content.world.unorganized_dialogue.TzHaarMejJal;
 import com.rs.game.content.world.unorganized_dialogue.TzHaarMejKah;
@@ -125,8 +125,6 @@ public class NPCHandler {
 					ops.add("Exchange Ancient Revenant Artefacts", () -> Statuettes.exchangeStatuettes(player));
 					ops.add("Nothing.");
 				});
-			else if (npc.getId() == 5282)
-				player.startConversation(new OsmanD(player, npc.getId()));
 			else if (npc.getId() == 15099)
 				player.startConversation(new FredaD(player, npc.getId()));
 			else if (npc.getId() == 2825)
