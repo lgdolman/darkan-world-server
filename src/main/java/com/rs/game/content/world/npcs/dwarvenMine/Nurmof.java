@@ -19,10 +19,12 @@ package com.rs.game.content.world.npcs.dwarvenMine;
 import com.rs.game.engine.dialogue.Conversation;
 import com.rs.game.engine.dialogue.HeadE;
 import com.rs.game.model.entity.player.Player;
+import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.events.NPCClickEvent;
 import com.rs.plugin.handlers.NPCClickHandler;
 import com.rs.utils.shop.ShopsHandler;
 
+@PluginEventHandler
 public class Nurmof extends Conversation {
 	private static int npcId = 594;
 
