@@ -16,7 +16,7 @@ public class Kortan extends Conversation {
     //Identify NPC by ID
     private static int npcId = 591;
 
-    public static NPCClickHandler Aemad = new NPCClickHandler(new Object[]{npcId}) {
+    public static NPCClickHandler Kortan = new NPCClickHandler(new Object[]{npcId}) {
         @Override
         //Handle Right-Click
         public void handle(NPCClickEvent e) {
@@ -51,6 +51,3 @@ public class Kortan extends Conversation {
     };
 
 }
-/*
-This fixes Hank and restores default store conversation
- */

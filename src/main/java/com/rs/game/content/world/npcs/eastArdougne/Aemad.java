@@ -51,6 +51,3 @@ public class Aemad extends Conversation {
     };
 
 }
-/*
-This fixes Hank and restores default store conversation
- */

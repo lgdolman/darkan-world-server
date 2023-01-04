@@ -50,6 +50,3 @@ public class Gunslik extends Conversation {
     };
 
 }
-/*
-This fixes Hank and restores default store conversation
- */
