@@ -39,11 +39,10 @@ import com.rs.game.content.transportation.BoatingD;
 import com.rs.game.content.transportation.TravelMethods;
 import com.rs.game.content.transportation.TravelMethods.Carrier;
 import com.rs.game.content.world.unorganized_dialogue.ClanItemClaim;
-import com.rs.game.content.world.npcs.dwarvenMine.DrogoDwarf;
 import com.rs.game.content.world.unorganized_dialogue.FredaD;
 import com.rs.game.content.world.unorganized_dialogue.FremennikShipmaster;
 import com.rs.game.content.world.unorganized_dialogue.GeneralStore;
-import com.rs.game.content.world.unorganized_dialogue.Nurmof;
+import com.rs.game.content.world.npcs.dwarvenMine.Nurmof;
 import com.rs.game.content.world.unorganized_dialogue.TanningD;
 import com.rs.game.content.world.unorganized_dialogue.TzHaarMejJal;
 import com.rs.game.content.world.unorganized_dialogue.TzHaarMejKah;
@@ -180,8 +179,6 @@ public class NPCHandler {
 				player.startConversation(new GeneralStore(player, npc, "varrock_general_store"));
 			else if (npc.getId() == 520 || npc.getId() == 521)
 				player.startConversation(new GeneralStore(player, npc, "lumbridge_general_store"));
-			else if (npc.getId() == 594)
-				player.startConversation(new Nurmof(player, npc));
 			else if (npc.getId() == 2617)
 				player.startConversation(new TzHaarMejJal(player, npc));
 			else if (npc.getId() == 2618)
