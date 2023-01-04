@@ -41,8 +41,6 @@ import com.rs.game.content.world.unorganized_dialogue.ClanItemClaim;
 import com.rs.game.content.world.unorganized_dialogue.FremennikShipmaster;
 import com.rs.game.content.world.unorganized_dialogue.GeneralStore;
 import com.rs.game.content.world.unorganized_dialogue.TanningD;
-import com.rs.game.content.world.unorganized_dialogue.TzHaarMejJal;
-import com.rs.game.content.world.unorganized_dialogue.TzHaarMejKah;
 import com.rs.game.content.world.unorganized_dialogue.skillmasters.GenericSkillcapeOwnerD;
 import com.rs.game.engine.quest.Quest;
 import com.rs.game.ge.GE;
@@ -169,10 +167,6 @@ public class NPCHandler {
 				player.startConversation(new GeneralStore(player, npc, "varrock_general_store"));
 			else if (npc.getId() == 520 || npc.getId() == 521)
 				player.startConversation(new GeneralStore(player, npc, "lumbridge_general_store"));
-			else if (npc.getId() == 2617)
-				player.startConversation(new TzHaarMejJal(player, npc));
-			else if (npc.getId() == 2618)
-				player.startConversation(new TzHaarMejKah(player, npc.getId()));
 			else if (npc.getId() == 6715 || npc.getId() == 14862)
 				player.startConversation(new EstateAgentDialogue(player, npc.getId()));
 			else if (npc.getId() == 3344 || npc.getId() == 3345)
