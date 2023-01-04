@@ -14,10 +14,9 @@
 //  Copyright (C) 2021 Trenton Kress
 //  This file is part of project: Darkan
 //
-package com.rs.game.content.world.unorganized_dialogue.skillmasters;
+package com.rs.game.content.world.npcs.burthorpe;
 
 import com.rs.game.content.Skillcapes;
-import com.rs.game.content.world.npcs.alKharid.SilkTrader;
 import com.rs.game.engine.dialogue.Conversation;
 import com.rs.game.engine.dialogue.Dialogue;
 import com.rs.game.engine.dialogue.HeadE;
@@ -25,22 +24,22 @@ import com.rs.game.model.entity.player.Player;
 import com.rs.plugin.events.NPCClickEvent;
 import com.rs.plugin.handlers.NPCClickHandler;
 
-public class AjjatD extends Conversation {
+public class Ajjat extends Conversation {
 
 	private static int npcId = 4288;
 
-	public static NPCClickHandler SilkTrader = new NPCClickHandler(new Object[]{npcId}) {
+	public static NPCClickHandler Ajjat = new NPCClickHandler(new Object[]{npcId}) {
 		@Override
 		//Handle Right-Click
 		public void handle(NPCClickEvent e) {
 			switch (e.getOption()) {
 				//Start Conversation
-				case "Talk-to" -> e.getPlayer().startConversation(new SilkTrader(e.getPlayer()));
+				case "Talk-to" -> e.getPlayer().startConversation(new Ajjat(e.getPlayer()));
 			}
 		}
 	};
 
-	public AjjatD(Player player) {
+	public Ajjat(Player player) {
 		super(player);
 
 		addNPC(npcId, HeadE.NO_EXPRESSION, "Greetings, fellow warrior. I am Ajjat, former Black Knight and now training officer here in the Warriors' Guild.");
