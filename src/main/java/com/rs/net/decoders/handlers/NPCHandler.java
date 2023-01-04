@@ -39,20 +39,15 @@ import com.rs.game.content.transportation.BoatingD;
 import com.rs.game.content.transportation.TravelMethods;
 import com.rs.game.content.transportation.TravelMethods.Carrier;
 import com.rs.game.content.world.unorganized_dialogue.ClanItemClaim;
-import com.rs.game.content.world.unorganized_dialogue.DrogoDwarf;
+import com.rs.game.content.world.npcs.dwarvenMine.DrogoDwarf;
 import com.rs.game.content.world.unorganized_dialogue.FredaD;
 import com.rs.game.content.world.unorganized_dialogue.FremennikShipmaster;
 import com.rs.game.content.world.unorganized_dialogue.GeneralStore;
 import com.rs.game.content.world.unorganized_dialogue.Nurmof;
-import com.rs.game.content.world.npcs.alKharid.Osman;
 import com.rs.game.content.world.unorganized_dialogue.TanningD;
 import com.rs.game.content.world.unorganized_dialogue.TzHaarMejJal;
 import com.rs.game.content.world.unorganized_dialogue.TzHaarMejKah;
-import com.rs.game.content.world.unorganized_dialogue.skillmasters.AjjatD;
 import com.rs.game.content.world.unorganized_dialogue.skillmasters.GenericSkillcapeOwnerD;
-import com.rs.game.engine.dialogue.Conversation;
-import com.rs.game.engine.dialogue.Dialogue;
-import com.rs.game.engine.dialogue.HeadE;
 import com.rs.game.engine.quest.Quest;
 import com.rs.game.ge.GE;
 import com.rs.game.model.entity.interactions.StandardEntityInteraction;
@@ -179,8 +174,6 @@ public class NPCHandler {
 				player.startConversation(new GenericSkillcapeOwnerD(player, 9713, Skillcapes.Dungeoneering));
 			else if (npc.getId() == 9708 || npc.getId() == 14847)
 				player.startConversation(new FremennikShipmaster(player, npc.getId(), false));
-			else if (npc.getId() == 579)
-				player.startConversation(new DrogoDwarf(player, npc));
 			else if (npc.getId() == 528 || npc.getId() == 529)
 				player.startConversation(new GeneralStore(player, npc, "edgeville_general_store"));
 			else if (npc.getId() == 522 || npc.getId() == 523)
