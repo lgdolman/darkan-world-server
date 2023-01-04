@@ -392,8 +392,6 @@ public class NPCHandler {
 
 	public static int getShopIdForNpc(int npcId) {
 		switch (npcId) {
-		case 590: // East Ardougne General Store", Aemad. (2614, 3293, 0)
-			return -1; // TODO
 		case 2154: // Gunslik's General Store "Gunslik's Assorted Items",
 			// Gunslik. (2868, 10190, 0)
 			return -1; // TODO
