@@ -19,7 +19,6 @@ package com.rs.net.decoders.handlers;
 import com.rs.game.content.Effect;
 import com.rs.game.content.PlayerLook;
 import com.rs.game.content.Skillcapes;
-import com.rs.game.content.Statuettes;
 import com.rs.game.content.death.GraveStone;
 import com.rs.game.content.minigames.creations.StealingCreationShop;
 import com.rs.game.content.minigames.ectofuntus.Ectofuntus;
@@ -39,10 +38,8 @@ import com.rs.game.content.transportation.BoatingD;
 import com.rs.game.content.transportation.TravelMethods;
 import com.rs.game.content.transportation.TravelMethods.Carrier;
 import com.rs.game.content.world.unorganized_dialogue.ClanItemClaim;
-import com.rs.game.content.world.unorganized_dialogue.FredaD;
 import com.rs.game.content.world.unorganized_dialogue.FremennikShipmaster;
 import com.rs.game.content.world.unorganized_dialogue.GeneralStore;
-import com.rs.game.content.world.npcs.dwarvenMine.Nurmof;
 import com.rs.game.content.world.unorganized_dialogue.TanningD;
 import com.rs.game.content.world.unorganized_dialogue.TzHaarMejJal;
 import com.rs.game.content.world.unorganized_dialogue.TzHaarMejKah;
@@ -114,9 +111,7 @@ public class NPCHandler {
 			}
 			if (player.getTreasureTrailsManager().useNPC(npc))
 				return;
-			if (npc.getId() == 15099)
-				player.startConversation(new FredaD(player, npc.getId()));
-			else if (npc.getId() == 2825)
+			if (npc.getId() == 2825)
 				player.sendOptionDialogue("Would you like to travel to Braindeath Island?", ops -> {
 					ops.add("Yes", () -> player.setNextWorldTile(WorldTile.of(2163, 5112, 1)));
 					ops.add("No");
