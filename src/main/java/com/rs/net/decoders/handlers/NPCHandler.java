@@ -392,8 +392,6 @@ public class NPCHandler {
 
 	public static int getShopIdForNpc(int npcId) {
 		switch (npcId) {
-		case 1436: // Ape Toll General Store", Ifaba. (2752, 2774, 0)
-			return -1; // TODO
 		case 590: // East Ardougne General Store", Aemad. (2614, 3293, 0)
 			return -1; // TODO
 		case 2154: // Gunslik's General Store "Gunslik's Assorted Items",
