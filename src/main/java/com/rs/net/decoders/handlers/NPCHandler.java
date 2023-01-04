@@ -114,12 +114,7 @@ public class NPCHandler {
 			}
 			if (player.getTreasureTrailsManager().useNPC(npc))
 				return;
-			if (npc.getId() == 6537)
-				player.sendOptionDialogue("What would you like to do?", ops -> {
-					ops.add("Exchange Ancient Revenant Artefacts", () -> Statuettes.exchangeStatuettes(player));
-					ops.add("Nothing.");
-				});
-			else if (npc.getId() == 15099)
+			if (npc.getId() == 15099)
 				player.startConversation(new FredaD(player, npc.getId()));
 			else if (npc.getId() == 2825)
 				player.sendOptionDialogue("Would you like to travel to Braindeath Island?", ops -> {
