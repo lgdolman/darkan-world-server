@@ -39,7 +39,7 @@ public class GhostShopkeeper extends Conversation {
 		public void handle(NPCClickEvent e) {
 			switch (e.getOption()) {
 				//Start Conversation
-				case "Talk-to" -> e.getPlayer().startConversation(new GhostShopkeeper(e.getPlayer()));
+				case "Talk-To" -> e.getPlayer().startConversation(new GhostShopkeeper(e.getPlayer()));
 				case "Trade" -> ShopsHandler.openShop(e.getPlayer(), "port_phasmatys_general_store");
 			}
 		}

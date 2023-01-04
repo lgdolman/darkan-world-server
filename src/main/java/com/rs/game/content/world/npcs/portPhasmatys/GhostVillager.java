@@ -36,7 +36,7 @@ public class GhostVillager extends Conversation {
 		public void handle(NPCClickEvent e) {
 			switch (e.getOption()) {
 				//Start Conversation
-				case "Talk-to" -> e.getPlayer().startConversation(new GhostVillager(e.getPlayer())); //TODO not responding
+				case "Talk-To" -> e.getPlayer().startConversation(new GhostVillager(e.getPlayer())); //TODO not responding
 			}
 		}
 	};
