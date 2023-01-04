@@ -139,8 +139,6 @@ public class NPCHandler {
 				});
 			else if (npc.getId() == 9707)
 				player.startConversation(new FremennikShipmaster(player, npc.getId(), true));
-			else if (npc.getId() == 4288)
-				player.startConversation(new AjjatD(player));
 			else if (npc.getId() == 8269)
 				player.startConversation(new GenericSkillcapeOwnerD(player, 8269, Skillcapes.Strength));
 			else if (npc.getId() == 705)
@@ -179,18 +177,6 @@ public class NPCHandler {
 				player.startConversation(new GenericSkillcapeOwnerD(player, 5113, Skillcapes.Hunter));
 			else if (npc.getId() == 9713)
 				player.startConversation(new GenericSkillcapeOwnerD(player, 9713, Skillcapes.Dungeoneering));
-			else if (npc.getId() == 8649)
-				player.startConversation(new Conversation(new Dialogue()
-						.addNPC(8649, HeadE.CHEERFUL, "Hello! What do you think of my apiary? Nice, isn't it?")
-						.addPlayer(HeadE.SKEPTICAL, "You mean all these beehives?")
-						.addNPC(8649, HeadE.CHEERFUL, "Yup! They're filled with bees. Also wax, and delicious honey too!")
-						.addNPC(8649, HeadE.CHEERFUL, "You're welcome to help yourself to as much wax and honey as you like.")
-						.addNPC(8649, HeadE.SKEPTICAL, "Oh, but you'll need some insect repellant - here.")
-						.addItemToInv(player, new Item(28, 1), "The beekeeper hands you some insect repellant.")
-						.addPlayer(HeadE.CHEERFUL, "Thank you!")
-						.addNPC(8649, HeadE.ANGRY, "Leave the bees, though. The bees are mine!")
-						.addNPC(8649, HeadE.CHEERFUL_EXPOSITION, "I love bees!")
-						.finish()));
 			else if (npc.getId() == 9708 || npc.getId() == 14847)
 				player.startConversation(new FremennikShipmaster(player, npc.getId(), false));
 			else if (npc.getId() == 579)
