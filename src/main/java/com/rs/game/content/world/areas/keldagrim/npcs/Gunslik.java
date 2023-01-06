@@ -1,4 +1,4 @@
-package com.rs.game.content.world.npcs.eastArdougne;
+package com.rs.game.content.world.areas.keldagrim.npcs;
 
 import com.rs.game.engine.dialogue.Conversation;
 import com.rs.game.engine.dialogue.Dialogue;
@@ -11,38 +11,37 @@ import com.rs.plugin.handlers.NPCClickHandler;
 import com.rs.utils.shop.ShopsHandler;
 
 @PluginEventHandler
-public class Aemad extends Conversation {
+public class Gunslik extends Conversation {
 
     //Identify NPC by ID
-    private static int npcId = 590;
+    private static int npcId = 2154;
 
-    public static NPCClickHandler Aemad = new NPCClickHandler(new Object[]{npcId}) {
+    public static NPCClickHandler Gunslik = new NPCClickHandler(new Object[]{npcId}) {
         @Override
         //Handle Right-Click
         public void handle(NPCClickEvent e) {
             switch (e.getOption()) {
                 //Start Conversation
-                case "Talk-to" -> e.getPlayer().startConversation(new Aemad(e.getPlayer()));
-                case "Trade-General-Store" -> ShopsHandler.openShop(e.getPlayer(), "aemads_adventuring_supplies");
+                case "Talk-to" -> e.getPlayer().startConversation(new Gunslik(e.getPlayer()));
+                case "Trade" -> ShopsHandler.openShop(e.getPlayer(), "gunsliks_assorted_items");
             }
         }
     };
 
-    public Aemad(Player player) {
+    public Gunslik(Player player) {
         super(player);
         addNPC(npcId, HeadE.SECRETIVE, "Hello there. You've come to the right place if you're looking for adventurer's equipment.");
         addOptions(new Options() {
             @Override
             public void create() {
 
-                option("Oh that sounds interesting..", new Dialogue()
+                option("Oh good!", new Dialogue()
                         .addNext(() -> {
-                            ShopsHandler.openShop(player, "aemads_adventuring_supplies");
+                            ShopsHandler.openShop(player, "gunsliks_assorted_items");
                         }));
 
-                option("No, I've come to the wrong place.", new Dialogue()
-                        .addPlayer(HeadE.CONFUSED, "No, I've come to the wrong place.")
-                        .addNPC(npcId, HeadE.FRUSTRATED, "Hmph. Well, perhaps next time you'll need something from me?")
+                option("Nothing, thanks.", new Dialogue()
+                        .addPlayer(HeadE.CONFUSED, "Nothing, thanks.")
                 );
             }
 

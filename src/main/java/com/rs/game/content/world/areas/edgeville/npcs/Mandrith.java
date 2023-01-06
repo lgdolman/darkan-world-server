@@ -14,9 +14,9 @@
 //  Copyright (C) 2021 Trenton Kress
 //  This file is part of project: Darkan
 //
-package com.rs.game.content.world.npcs.portPhasmatys;
+package com.rs.game.content.world.areas.edgeville.npcs;
 
-import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.game.content.Statuettes;
 import com.rs.game.engine.dialogue.Conversation;
 import com.rs.game.engine.dialogue.Dialogue;
 import com.rs.game.engine.dialogue.HeadE;
@@ -25,60 +25,38 @@ import com.rs.game.model.entity.player.Player;
 import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.events.NPCClickEvent;
 import com.rs.plugin.handlers.NPCClickHandler;
-import com.rs.utils.shop.ShopsHandler;
-
 
 @PluginEventHandler
-public class GhostShopkeeper extends Conversation {
-	private static int npcId = 1699;
+public class Mandrith extends Conversation {
+	private static int npcId = 6537;
 
-
-	public static NPCClickHandler GhostShopkeeper = new NPCClickHandler(new Object[]{npcId}) {
+	public static NPCClickHandler Mandrith = new NPCClickHandler(new Object[]{npcId}) {
 		@Override
 		//Handle Right-Click
 		public void handle(NPCClickEvent e) {
 			switch (e.getOption()) {
 				//Start Conversation
-				case "Talk-to" -> e.getPlayer().startConversation(new GhostShopkeeper(e.getPlayer()));
-				case "Trade" -> ShopsHandler.openShop(e.getPlayer(), "port_phasmatys_general_store");
+				case "Talk-to" -> e.getPlayer().startConversation(new Mandrith(e.getPlayer()));
 			}
 		}
 	};
 
-	public boolean GhostEquipped() {
-		int neckId = player.getEquipment().getNeckId();
-		if (neckId == -1)
-			return false;
-		return ItemDefinitions.getDefs(neckId).getName().contains("Ghostspeak");
-	};
-
-	public GhostShopkeeper(Player player) {
+	public Mandrith(Player player) {
 		super(player);
-		if (GhostEquipped())
-		{
-		addNPC(npcId, HeadE.SECRETIVE, "Would you like to buy or sell anything?");
+		addPlayer(HeadE.CONFUSED, "Who are you?");
+		addNPC(npcId, HeadE.AMAZED, "Why, I'm Mandrith! Inspiration to combatants both mighty and puny!");
+		addPlayer(HeadE.CONFUSED, "Okay...fair enough.");
 		addOptions(new Options() {
 			@Override
 			public void create() {
 
-				option("I'd like to see what you have for sale.", new Dialogue()
-						.addNext(() -> {
-							ShopsHandler.openShop(player, "port_phasmatys_general_store");
-						}));
-
-				option("No thanks.", new Dialogue()
-						.addPlayer(HeadE.CONFUSED, "No thanks.")
+				option("Can you exchange some Ancient Revenant Artefacts?", new Dialogue()
+						.addNext(() -> Statuettes.exchangeStatuettes(player)));//TODO INV check
+				option("Bye.", new Dialogue()
+						.addPlayer(HeadE.HAPPY_TALKING, "Bye.")
 				);
 			}
-
-
 		});
-	}
-		else {
-			addNPC(npcId,HeadE.FRUSTRATED,"Woooo wooo wooooo woooo");
-			create();
-			player.sendMessage("You cannot understand the ghost.");
-		};
 	}
 }
 
