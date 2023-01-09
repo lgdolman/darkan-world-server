@@ -76,7 +76,7 @@ public class GhostVillager extends Conversation {
 			addNPC(npcId,HeadE.FRUSTRATED,"Woooo wooo wooooo woooo");
 			create();
 			player.sendMessage("You cannot understand the ghost.");
-		};
+		}
 	}
 }
 
