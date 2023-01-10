@@ -53,23 +53,14 @@ public class GhostVillagerD extends Conversation {
 		int neckId = player.getEquipment().getNeckId();
 		if (GhostEquipped())
 		{
-			switch (Utils.random(1,5)) {
-				case 1 : addNPC(npcId,HeadE.CALM, "What do you want, mortal?");
-					create();
-					break;
-				case 2 : addNPC(npcId,HeadE.CALM, "We do not talk to the warm-bloods.");
-					create();
-					break;
-				case 3 : addNPC(npcId,HeadE.CALM, "Why did we have to listen to that maniacal priest?");
-					create();
-					break;
-				case 4 : addNPC(npcId,HeadE.CALM, "This cold wind blows right through you, doesn't it?");
-					create();
-					break;
-				case 5 : addNPC(npcId,HeadE.CALM, "Worship the Ectofuntus all you want, but don't bother us, human.");
-					create();
-					break;
-			}
+			String[] dialogues = new String[] {
+					"What do you want, mortal?",
+					"We do not talk to the warm-bloods.",
+					"Why did we have to listen to that maniacal priest?",
+					"This cold wind blows right through you, doesn't it?",
+					"Worship the Ectofuntus all you want, but don't bother us, human.",
+			};
+			addNPC(npcId, HeadE.CALM, dialogues[Utils.random(5)]);
 		}
 		else {
 			addNPC(npcId,HeadE.FRUSTRATED,"Woooo wooo wooooo woooo");
