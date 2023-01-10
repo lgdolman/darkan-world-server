@@ -1,6 +1,6 @@
-package com.rs.game.content.quests.ghostsahoy;
+package com.rs.game.content.quests.ghostsahoy.npcs;
 
-public class GhostDisciple {
+public class GhostDiscipleD {
 }
 
 /*

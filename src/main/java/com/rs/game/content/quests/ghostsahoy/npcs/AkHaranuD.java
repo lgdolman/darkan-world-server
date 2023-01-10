@@ -1,4 +1,4 @@
-package com.rs.game.content.quests.ghostsahoy;
+package com.rs.game.content.quests.ghostsahoy.npcs;
 
 public class AkHaranuD {
     private static int npcId = 9999;

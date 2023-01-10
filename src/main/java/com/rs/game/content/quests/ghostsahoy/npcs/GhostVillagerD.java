@@ -14,7 +14,7 @@
 //  Copyright (C) 2021 Trenton Kress
 //  This file is part of project: Darkan
 //
-package com.rs.game.content.quests.ghostsahoy;
+package com.rs.game.content.quests.ghostsahoy.npcs;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.engine.dialogue.Conversation;

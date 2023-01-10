@@ -37,7 +37,9 @@ public class GhostsAhoy extends QuestOutline {
                 break;
             case 3:
                 lines.add("");
-                lines.add("Velorina was crestfallen at Necrovarus' refusal to lift his ban, and she told me of a woman who fled Port Phasmatys before the townsfolk died, and to seek her out, as she may know of a way around Necrovarus' stubbornness.");
+                lines.add("Velorina was crestfallen at Necrovarus' refusal to lift his ban, ");
+                lines.add("and she told me of a woman who fled Port Phasmatys before the townsfolk died,");
+                lines.add("and to seek her out, as she may know of a way around Necrovarus' stubbornness.");
                 break;
             case 4:
                 lines.add("I brought the old woman the Book of Haricanto, the Robes of Necrovarus, and a translation manual.");
@@ -52,7 +54,9 @@ public class GhostsAhoy extends QuestOutline {
                 lines.add("");
                 break;
             case 7:
-                lines.add("I have told Velorina that Necrovarus has been commanded to remove his ban, and to allow any ghost who so desires to pass over into the next plane of existence. Velorina gave me the Ectophial in return, which I can use to teleport to the Temple of Phasmatys.");
+                lines.add("I have told Velorina that Necrovarus has been commanded to remove his ban,");
+                lines.add("and to allow any ghost who so desires to pass over into the next plane of existence.");
+                lines.add("Velorina gave me the Ectophial in return, which I can use to teleport to the Temple of Phasmatys.");
                 lines.add("");
                 break;
             case 8:
