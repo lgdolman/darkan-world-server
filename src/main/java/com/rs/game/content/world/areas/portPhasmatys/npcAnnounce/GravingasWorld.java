@@ -16,11 +16,8 @@
 //
 package com.rs.game.content.world.areas.portPhasmatys.npcAnnounce;
 
-import com.rs.cache.loaders.ItemDefinitions;
-import com.rs.game.engine.dialogue.HeadE;
 import com.rs.game.model.entity.ForceTalk;
 import com.rs.game.model.entity.npc.NPC;
-import com.rs.game.model.entity.player.Player;
 import com.rs.lib.game.WorldTile;
 import com.rs.lib.util.Utils;
 import com.rs.plugin.annotations.PluginEventHandler;
