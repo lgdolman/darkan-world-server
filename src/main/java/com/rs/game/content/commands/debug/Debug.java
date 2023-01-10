@@ -92,6 +92,10 @@ public class Debug {
 			musicMoveOn = !musicMoveOn;
 		});
 
+		Commands.add(Rights.ADMIN, "addcoins", "Adds coins to the player.", (p, args) -> {
+			p.getInventory().addCoins(Integer.valueOf(args[0]));
+		});
+
 		Commands.add(Rights.PLAYER, "coords,getpos,mypos,pos,loc", "Gets the coordinates for the tile.", (p, args) -> {
 			p.sendMessage("Coords: " + p.getX() + "," + p.getY() + "," + p.getPlane() + ", regionId: " + p.getRegionId() + ", chunkX: " + p.getChunkX() + ", chunkY: " + p.getChunkY());
 			p.sendMessage("JagCoords: " + p.getPlane() + "," + p.getRegionX() + "," + p.getRegionY() + "," + p.getXInScene(p.getSceneBaseChunkId()) + "," + p.getYInScene(p.getSceneBaseChunkId()));

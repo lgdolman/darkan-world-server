@@ -37,6 +37,7 @@ public class GravingasWorld extends NPC {
 	@Override
 	public void processNPC() {
 		super.processNPC(); //TODO add support for ghostspeak?
+		if (Utils.random(50) == 0)
 		{
 			String[] dialogues = new String[] {
 			"Down with Necrovarus!!",
@@ -48,7 +49,7 @@ public class GravingasWorld extends NPC {
 			"Let Necrovarus know we want out!!",
 			"Don't stay silent - victory in numbers!!",
 			};
-			setNextForceTalk(new ForceTalk(dialogues[Utils.random(100)]));
+			setNextForceTalk(new ForceTalk(dialogues[Utils.random(8)]));
 		}
 	}
 
