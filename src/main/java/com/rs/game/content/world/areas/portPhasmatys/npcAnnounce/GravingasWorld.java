@@ -17,6 +17,7 @@
 package com.rs.game.content.world.areas.portPhasmatys.npcAnnounce;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.game.engine.dialogue.HeadE;
 import com.rs.game.model.entity.ForceTalk;
 import com.rs.game.model.entity.npc.NPC;
 import com.rs.game.model.entity.player.Player;
@@ -36,22 +37,19 @@ public class GravingasWorld extends NPC {
 	@Override
 	public void processNPC() {
 		super.processNPC(); //TODO add support for ghostspeak?
-		if (Utils.random(160) == 20)
-			setNextForceTalk(new ForceTalk("Down with Necrovarus!!"));
-		if (Utils.random(160) == 40)
-			setNextForceTalk(new ForceTalk("Rise up my fellow ghosts, and we shall be victorious!!"));
-		if (Utils.random(160) == 60)
-			setNextForceTalk(new ForceTalk("Power to the Ghosts!!"));
-		if (Utils.random(160) == 80)
-			setNextForceTalk(new ForceTalk("Rise together, Ghosts without a cause!!"));
-		if (Utils.random(160) == 100)
-			setNextForceTalk(new ForceTalk("United we conquer - divided we fall!!"));
-		if (Utils.random(160) == 120)
-			setNextForceTalk(new ForceTalk("We shall overcome!!"));
-		if (Utils.random(160) == 140)
-			setNextForceTalk(new ForceTalk("Let Necrovarus know we want out!!"));
-		if (Utils.random(160) == 160)
-			setNextForceTalk(new ForceTalk("Don't stay silent - victory in numbers!!"));
+		{
+			String[] dialogues = new String[] {
+			"Down with Necrovarus!!",
+			"Rise up my fellow ghosts, and we shall be victorious!!",
+			"Power to the Ghosts!!",
+			"Rise together, Ghosts without a cause!!",
+			"United we conquer - divided we fall!!",
+			"We shall overcome!!",
+			"Let Necrovarus know we want out!!",
+			"Don't stay silent - victory in numbers!!",
+			};
+			setNextForceTalk(new ForceTalk(dialogues[Utils.random(100)]));
+		}
 	}
 
 	public static NPCInstanceHandler toFunc = new NPCInstanceHandler(npcId) {
