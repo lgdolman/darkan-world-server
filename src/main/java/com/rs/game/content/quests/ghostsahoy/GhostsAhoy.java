@@ -6,7 +6,6 @@ import com.rs.game.engine.quest.QuestOutline;
 import com.rs.game.model.entity.player.Player;
 import com.rs.lib.Constants;
 import com.rs.plugin.annotations.PluginEventHandler;
-
 import java.util.ArrayList;
 
 @QuestHandler(Quest.GHOSTS_AHOY)
@@ -22,12 +21,15 @@ public class GhostsAhoy extends QuestOutline {
         ArrayList<String> lines = new ArrayList<>();
         switch (stage) {
             case 0:
-                lines.add("I can start this quest by speaking to General Bentnoze or");
-                lines.add("General Wartface in the Goblin Village north of Falador.");
+                lines.add("I can start this quest by speaking to Velorina");
+                lines.add("in Port Phasmatys.");
                 break;
             case 1:
                 lines.add("");
-                lines.add("I have spoken with Velorina, who has told me the sad history of the ghosts of Port Phasmatys. She has asked me to plead with Necrovarus in the Phasmatyan Temple to let any ghost who so wishes pass over into the next world.");
+                lines.add("I have spoken with Velorina,");
+                lines.add("who has told me the sad history of the ghosts of Port Phasmatys.");
+                lines.add("She has asked me to plead with Necrovarus in the Phasmatyan Temple");
+                lines.add("to let any ghost who so wishes pass over into the next world.");
                 break;
             case 2:
                 lines.add("");
