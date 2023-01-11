@@ -19,6 +19,8 @@ package com.rs.game.content.quests.ghostsahoy.npcs;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.engine.dialogue.Conversation;
 import com.rs.game.engine.dialogue.HeadE;
+import com.rs.game.engine.quest.Quest;
+import com.rs.game.engine.quest.QuestManager;
 import com.rs.game.model.entity.player.Player;
 import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.events.NPCClickEvent;
@@ -44,6 +46,11 @@ public class GravingasD extends Conversation {
 		super(player);
 		if (player.getEquipment().GhostEquipped())
 		{
+			if(player.isQuestComplete(Quest.GHOSTS_AHOY))
+			{
+
+			}
+
 			//TODO Ghosts Ahoy
 			addNPC(npcId,HeadE.FRUSTRATED,"Will you join with me and protest against the evil ban of Necrovarus and his disciples?");
 			addPlayer(HeadE.CONFUSED, "I'm sorry, I don't really think I should get involved.");

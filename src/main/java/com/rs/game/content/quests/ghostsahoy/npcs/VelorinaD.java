@@ -1,6 +1,5 @@
 package com.rs.game.content.quests.ghostsahoy.npcs;
 
-import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.engine.dialogue.Conversation;
 import com.rs.game.engine.dialogue.Dialogue;
 import com.rs.game.engine.dialogue.HeadE;
@@ -157,49 +156,49 @@ public class VelorinaD extends Conversation {
             addPlayer(HeadE.CALM,"No, I was just getting to that.");
             addNPC(npcId,HeadE.CALM," Well, I suppose we do have all the time in the world.");
         }
+        if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 2) {
+            addPlayer(HeadE.CALM,"I'm sorry, but Necrovarus will not let you go.");
+            addNPC(npcId,HeadE.SHAKING_HEAD,"I feared as much. His spirit is a thing of fire and wrath.");
+            addPlayer(HeadE.CALM,"You spoke of another way.");
+            addNPC(npcId,HeadE.CALM,"It is only a small chance.");
+            addNPC(npcId,HeadE.CALM,"During the building of the Ectofuntus one of Necrovarus's disciples spoke out against him.");
+            addNPC(npcId,HeadE.CALM,"It is such a long time ago I cannot remember her name, although I knew her as a friend.");
+            addNPC(npcId,HeadE.CALM,"She fled before the Ectofuntus took control over us, but being a disciple of Necrovarus she would have been privy to many of his darkest secrets.");
+            addNPC(npcId,HeadE.CALM,"She may know of a way to aid us without Necrovarus.");
+            addPlayer(HeadE.CALM,"Do you know where this woman can be found?");
+            addNPC(npcId,HeadE.CALM," I have a vision of a small wooden shack, the land it was built on the unholy soil of Morytania. ");
+            addNPC(npcId,HeadE.CALM,"I sense the sea is very close, and that there looms castles to the west and the east.");
+            addPlayer(HeadE.CALM,"If it was such a long time ago, won't she be dead already?");
+            addNPC(npcId,HeadE.CALM,"She was a friend of mine. Had she died, I would have felt her spirit pass over to the next world, though I may not follow.");
+            player.getQuestManager().setStage(Quest.GHOSTS_AHOY, 3, true);
+        }
+        if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 4) {
+            addPlayer(HeadE.CALM,"Do you know where I can find the Book of Haricanto?");
+            addNPC(npcId,HeadE.CALM," Nobody knows what has happened to the Book. It was stolen when our port was raided by pirates many years ago, and never seen since.");
+            addPlayer(HeadE.CALM,"Do you know where I can find the Robes of Necrovarus?");
+            addNPC(npcId,HeadE.CALM," I imagine they are still worn by his mortal body, which now lies in a coffin inside the Temple.");
+            addPlayer(HeadE.CALM,"I need something to translate the Book of Haricanto.");
+            addNPC(npcId,HeadE.CALM," I don't really know. You could try asking some of the traders from the East – they might be able to help you.");
+            player.getQuestManager().setStage(Quest.GHOSTS_AHOY, 5, true);
+        }
+        if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 5) {
+            addNPC(npcId,HeadE.CALM," How is it going?");
+            addPlayer(HeadE.CALM,"I have had the Amulet of Ghostspeak enchanted, which I shall use to command Necrovarus to set you free.");
+            addNPC(npcId,HeadE.CALM," Oh, kind [_/lady] – you are the answer to all our prayers!");
+
+        }
+        if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 99) {
+            addNPC(npcId, HeadE.CALM, " You don't need to tell me [Player] – I sensed the removal of Necrovarus's psychic barrier!");
+            addPlayer(HeadE.CALM, "Only happy to help out.");
+            addNPC(npcId, HeadE.CALM, " Here, take this as a thank you for the service that you have given us.");
+            player.sendMessage("Velorina gives you a vial of bright green ectoplasm.");
+            addNPC(npcId, HeadE.CALM, " This is an Ectophial. If you ever want to come back to Port Phasmatys, empty this on the floor beneath your feet, and you will be instantly teleported to the temple – the source of its power. ");
+            addNPC(npcId, HeadE.CALM, "Remember that once the Ectophial has been used you need to refill it from the Ectofuntus.");
+            player.getQuestManager().completeQuest(Quest.GHOSTS_AHOY);
+        }
         else {
-            addNPC(npcId, HeadE.CALM_TALK, "Woooowoooooo woooooo!");
-            addSimple("You cannot understand a word the ghost is saying.");
+                addNPC(npcId, HeadE.CALM_TALK, "Woooowoooooo woooooo!");
+                addSimple("You cannot understand a word the ghost is saying.");
+            }
         }
     }
-}
-
-
-
-/*
-Stage 2
-Plan B
-addPlayer(HeadE.CALM,"I'm sorry, but Necrovarus will not let you go.
-addNPC(npcId,HeadE.CALM," I feared as much. His spirit is a thing of fire and wrath.
-addPlayer(HeadE.CALM,"You spoke of another way.
-addNPC(npcId,HeadE.CALM," It is only a small chance. During the building of the Ectofuntus one of Necrovarus's disciples spoke out against him. It is such a long time ago I cannot remember her name, although I knew her as a friend. She fled before the Ectofuntus took control over us, but being a disciple of Necrovarus she would have been privy to many of his darkest secrets. She may know of a way to aid us without Necrovarus.
-addPlayer(HeadE.CALM,"Do you know where this woman can be found?
-addNPC(npcId,HeadE.CALM," I have a vision of a small wooden shack, the land it was built on the unholy soil of Morytania. I sense the sea is very close, and that there looms castles to the west and the east.
-addPlayer(HeadE.CALM,"If it was such a long time ago, won't she be dead already?
-addNPC(npcId,HeadE.CALM," She was a friend of mine. Had she died, I would have felt her spirit pass over to the next world, though I may not follow.
- */
-
-/*
-addPlayer(HeadE.CALM,"Do you know where I can find the Book of Haricanto?
-addNPC(npcId,HeadE.CALM," Nobody knows what has happened to the Book. It was stolen when our port was raided by pirates many years ago, and never seen since.
-addPlayer(HeadE.CALM,"Do you know where I can find the Robes of Necrovarus?
-addNPC(npcId,HeadE.CALM," I imagine they are still worn by his mortal body, which now lies in a coffin inside the Temple.
-addPlayer(HeadE.CALM,"I need something to translate the Book of Haricanto.
-addNPC(npcId,HeadE.CALM," I don't really know. You could try asking some of the traders from the East – they might be able to help you.
- */
-
-/*
-Speaking to Velorina afterwards
-addNPC(npcId,HeadE.CALM," How is it going?
-addPlayer(HeadE.CALM,"I have had the Amulet of Ghostspeak enchanted, which I shall use to command Necrovarus to set you free.
-addNPC(npcId,HeadE.CALM," Oh, kind [_/lady] – you are the answer to all our prayers!
- */
-
-/*
-Freedom
-addNPC(npcId,HeadE.CALM," You don't need to tell me [Player] – I sensed the removal of Necrovarus's psychic barrier!
-addPlayer(HeadE.CALM,"Only happy to help out.
-addNPC(npcId,HeadE.CALM," Here, take this as a thank you for the service that you have given us.
-Velorina gives you a vial of bright green ectoplasm.
-addNPC(npcId,HeadE.CALM," This is an Ectophial. If you ever want to come back to Port Phasmatys, empty this on the floor beneath your feet, and you will be instantly teleported to the temple – the source of its power. Remember that once the Ectophial has been used you need to refill it from the Ectofuntus.
-*/

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class GhostsAhoy extends QuestOutline {
 
     public int getCompletedStage() {
-        return 8;
+        return 99;
     }
 
     @Override
