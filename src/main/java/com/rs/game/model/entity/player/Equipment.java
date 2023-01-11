@@ -171,6 +171,13 @@ public final class Equipment {
 				&& ItemDefinitions.getDefs(weaponId).getName().contains("Guthan's");
 	}
 
+	public boolean GhostEquipped() {
+		int neckId = player.getEquipment().getNeckId();
+		if (neckId == -1)
+			return false;
+		return ItemDefinitions.getDefs(neckId).getName().contains("Ghostspeak");
+	}
+
 	public void refreshConfigs(boolean init) {
 		double hpIncrease = 0;
 		for (int index = 0; index < items.getSize(); index++) {

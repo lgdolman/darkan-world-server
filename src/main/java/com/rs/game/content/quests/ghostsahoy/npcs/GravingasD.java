@@ -40,17 +40,9 @@ public class GravingasD extends Conversation {
 		}
 	};
 
-	public boolean GhostEquipped() {
-		int neckId = player.getEquipment().getNeckId();
-		if (neckId == -1)
-			return false;
-		return ItemDefinitions.getDefs(neckId).getName().contains("Ghostspeak");
-	}
-
 	public GravingasD(Player player) {
 		super(player);
-		int neckId = player.getEquipment().getNeckId();
-		if (GhostEquipped())
+		if (player.getEquipment().GhostEquipped())
 		{
 			//TODO Ghosts Ahoy
 			addNPC(npcId,HeadE.FRUSTRATED,"Will you join with me and protest against the evil ban of Necrovarus and his disciples?");

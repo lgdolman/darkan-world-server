@@ -26,16 +26,10 @@ public class VelorinaD extends Conversation {
         }
     };
 
-    public boolean GhostEquipped() {
-        int neckId = player.getEquipment().getNeckId();
-        if (neckId == -1)
-            return false;
-        return ItemDefinitions.getDefs(neckId).getName().contains("Ghostspeak");
-    }
 
     public VelorinaD(Player player) {
         super(player);
-        if (GhostEquipped()) {
+        if (player.getEquipment().GhostEquipped()) {
             addOptions("What would you like to say?", new Options() {
                 @Override
                 public void create() {
