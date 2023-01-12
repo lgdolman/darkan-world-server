@@ -30,7 +30,6 @@ import com.rs.plugin.handlers.NPCClickHandler;
 @PluginEventHandler
 public class GhostVillagerD extends Conversation {
 	private static int npcId = 1697;
-	private int signatures = 0; //TODO Database storage?
 
 	public static NPCClickHandler GhostVillagerD = new NPCClickHandler(new Object[]{npcId}) {
 		@Override
@@ -84,11 +83,11 @@ public class GhostVillagerD extends Conversation {
 							//Pick a phrase from the successful options
 							addNPC(npcId, HeadE.CALM, successful[Utils.random(3)]);
 							//Increase signatures
-							signatures++;
+							player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).incI("signatures");
 							//Tell the player the current number of signatures
-							player.sendMessage("The ghost signs your petition. You have obtained " + signatures + " signatures so far.");
+							player.sendMessage("The ghost signs your petition. You have obtained " + player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("signatures") + " signatures so far.");
 							//Check for completion
-							if (signatures == 9) {
+							if (player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("signatures") == 9) {
 								//Advance the quest
 								player.getQuestManager().setStage(Quest.GHOSTS_AHOY, 2);
 							}
@@ -118,11 +117,11 @@ public class GhostVillagerD extends Conversation {
 													//Delete the tokens from the player's inventory
 													player.getInventory().deleteItem(4278, cost);
 													//Increase the signatures counter
-													signatures++;
+													player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).incI("signatures");
 													//Tell the player the number of signatures
-													player.sendMessage("The ghost signs your petition costing " + cost + " tokens. You have obtained " + signatures + " signatures so far.");
+													player.sendMessage("The ghost signs your petition costing " + cost + " tokens. You have obtained " + player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("signatures") + " signatures so far.");
 													//Check for completion
-													if (signatures == 9) {
+													if (player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("signatures") == 9) {
 														//Advance the quest
 														player.getQuestManager().setStage(Quest.GHOSTS_AHOY, 2);
 													}
@@ -135,7 +134,7 @@ public class GhostVillagerD extends Conversation {
 									option("No", new Dialogue()
 											//Player refuses to pay
 											.addPlayer(HeadE.CONFUSED, "There's no way I'm giving in to corruption.")
-											.addNPC(npcId, HeadE.SHAKING_HEAD, "There's no way I'm giving in to corruption.")
+											.addNPC(npcId, HeadE.SHAKING_HEAD, "Suit yourself.")
 									);
 								}
 							});
