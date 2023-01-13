@@ -1,9 +1,104 @@
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+//  Copyright (C) 2021 Trenton Kress
+//  This file is part of project: Darkan
+//
 package com.rs.game.content.quests.ghostsahoy.npcs;
 
-public class NecrovarusD {
-    private static int npcId = 9999;
+import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.game.engine.dialogue.Conversation;
+import com.rs.game.engine.dialogue.Dialogue;
+import com.rs.game.engine.dialogue.HeadE;
+import com.rs.game.engine.dialogue.Options;
+import com.rs.game.engine.quest.Quest;
+import com.rs.game.model.entity.player.Player;
+import com.rs.lib.util.Utils;
+import com.rs.plugin.annotations.PluginEventHandler;
+import com.rs.plugin.events.NPCClickEvent;
+import com.rs.plugin.handlers.NPCClickHandler;
 
+@PluginEventHandler
+public class NecrovarusD extends Conversation {
+    private static int npcId = 1684;
+
+    public static NPCClickHandler NecrovarusD = new NPCClickHandler(new Object[]{npcId}) {
+        @Override
+        //Handle Right-Click
+        public void handle(NPCClickEvent e) {
+            switch (e.getOption()) {
+                //Start Conversation
+                case "Talk-To" -> e.getPlayer().startConversation(new NecrovarusD(e.getPlayer()));
+            }
+        }
+    };
+
+    public NecrovarusD(Player player) {
+        super(player);
+        if(!player.getEquipment().GhostEquipped())
+        {
+            //Handle no ghostspeak
+            addNPC(npcId, HeadE.FRUSTRATED, "Woooo wooo wooooo woooo");
+            create();
+            player.sendMessage("You cannot understand the ghost.");
+            return;
+        }
+        if (player.getQuestManager().notStarted(Quest.GHOSTS_AHOY)) {
+            String[] preGA = new String[]{
+                    "I do not answer questions, mortal fool !!",
+                    "I will answer questions when you are dead !!",
+                    "Nobody speaks to me unless I speak to them !!!",
+                    "Speak to me again and I will rend the soul from your flesh.",
+                    "You dare to speak to me???Have you lost your wits ????",
+            };
+            addOptions("Select an option.", new Options() {
+                @Override
+                public void create() {
+                    option("What is this place?", new Dialogue()
+                            .addPlayer(HeadE.CONFUSED, "What is this place?")
+                            .addNPC(npcId, HeadE.ANGRY, preGA[(Utils.random(6))])
+                    );
+                    option("What happened to everyone here?", new Dialogue()
+                            .addPlayer(HeadE.CONFUSED, "What happened to everyone here?")
+                            .addNPC(npcId, HeadE.ANGRY, preGA[(Utils.random(6))])
+                    );
+                    option("How do I get into the town?", new Dialogue()
+                            .addPlayer(HeadE.CONFUSED, "How do I get into the town?")
+                            .addNPC(npcId, HeadE.ANGRY, preGA[(Utils.random(6))])
+                    );
+                }
+
+            });
+        }
+        if(player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 1) {
+            addPlayer(HeadE.CALM_TALK, "I must speak with you on behalf of Velorina.");
+            addNPC(npcId, HeadE.ANGRY, "You dare to speak that name in this place?????");
+            addPlayer(HeadE.CALM_TALK, "She wants to pass-");
+            addNPC(npcId, HeadE.ANGRY, "Silence! Or I will incinerate the flesh from your bones!!");
+            addPlayer(HeadE.CALM_TALK, "But she-");
+            addNPC(npcId, HeadE.ANGRY, "Get out of my sight!! Or I promise you that you will regret your insolence for the rest of eternity!!");
+            player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("NecrovarusS1");
+            player.getQuestManager().setStage(Quest.GHOSTS_AHOY, 2);
+        }
+        if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 2) {
+            //Speaking to Necrovarus again
+            addPlayer(HeadE.CALM_TALK, "Please, listen to me-");
+            addNPC(npcId, HeadE.ANGRY, "No – listen to me. Go from this place and do not return, or I will remove your head.;");
+        }
+
+    }
 }
+
 
 /*
 Pleading for Phasmatys

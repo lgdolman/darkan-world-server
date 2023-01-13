@@ -212,9 +212,22 @@ public class QuestManager {
 			player.sendMessage("You must have completed " + quest.getDefs().name + " " + actionForUnimplemented);
 		return false;
 	}
+	public boolean notStarted(Quest quest, String actionForUnimplemented) {
+		if (!quest.isImplemented())
+			return quest.meetsReqs(player, actionForUnimplemented);
+		if (getStage(quest) == 0)
+			return true;
+		if (actionForUnimplemented != null)
+			player.sendMessage("You must have completed " + quest.getDefs().name + " " + actionForUnimplemented);
+		return false;
+	}
 	
 	public boolean isComplete(Quest quest) {
 		return isComplete(quest, null);
+	}
+
+	public boolean notStarted(Quest quest) {
+		return notStarted(quest, null);
 	}
 
 	public int getQuestPoints() {
