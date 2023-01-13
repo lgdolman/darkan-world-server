@@ -28,8 +28,6 @@ import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.events.NPCClickEvent;
 import com.rs.plugin.handlers.NPCClickHandler;
 
-import static java.lang.Math.round;
-
 @PluginEventHandler
 public class GhostVillagerD extends Conversation {
 	private static int npcId = 1697;
@@ -62,7 +60,7 @@ public class GhostVillagerD extends Conversation {
 						addPlayer(HeadE.CALM_TALK, "Would you sign this petition form, please?");
 						addNPC(npcId, HeadE.SKEPTICAL_HEAD_SHAKE, "Why are you wearing that bedsheet? If you're trying to pretend to be one of us, you're not fooling anybody – you're not even green!");
 					} else {
-						//Talking to a villager wearing the plain bedsheet outside of quest. Client doesn't render. 
+						//Talking to a villager wearing the plain bedsheet outside of quest. Client doesn't render.
 						addPlayer(HeadE.HAPPY_TALKING, "Woooo wooo wooooo woooo");
 						addNPC(npcId, HeadE.SKEPTICAL_HEAD_SHAKE, "Why are you wearing that bedsheet? If you're trying to pretend to be one of us, you're not fooling anybody – you're not even green!");
 					}
