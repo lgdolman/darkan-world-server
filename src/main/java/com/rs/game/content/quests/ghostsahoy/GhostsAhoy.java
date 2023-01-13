@@ -7,9 +7,12 @@ import com.rs.game.engine.quest.QuestOutline;
 import com.rs.game.model.entity.player.Player;
 import com.rs.lib.Constants;
 import com.rs.lib.game.WorldTile;
+import com.rs.lib.util.Utils;
 import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.events.ItemClickEvent;
+import com.rs.plugin.events.ItemOnItemEvent;
 import com.rs.plugin.handlers.ItemClickHandler;
+import com.rs.plugin.handlers.ItemOnItemHandler;
 
 import java.util.ArrayList;
 
@@ -86,13 +89,12 @@ public class GhostsAhoy extends QuestOutline {
         @Override
         public void handle(ItemClickEvent e) {
             Player p = e.getPlayer();
-            if(e.getOption().equalsIgnoreCase("count"))
+            if (e.getOption().equalsIgnoreCase("count"))
                 e.getPlayer().sendMessage("You have obtained " + e.getPlayer().getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("signatures") + " of 10 signatures so far.");
-            if(e.getOption().equalsIgnoreCase("drop")) {
-                if(e.getPlayer().getQuestManager().isComplete(Quest.GHOSTS_AHOY)){
+            if (e.getOption().equalsIgnoreCase("drop")) {
+                if (e.getPlayer().getQuestManager().isComplete(Quest.GHOSTS_AHOY)) {
                     e.getPlayer().getInventory().deleteItem(4283, 1);
-                }
-                else {
+                } else {
                     e.getPlayer().sendOptionDialogue("Drop it? It will be destroyed and you will have to get new signatures.", ops -> {
                         ops.add("Yes, drop it.", (() -> {
                             e.getPlayer().getInventory().deleteItem(4283, 1);
@@ -102,6 +104,135 @@ public class GhostsAhoy extends QuestOutline {
                     });
                 }
 
+            }
+        }
+    };
+
+    public static ItemOnItemHandler handleNettleTeaB = new ItemOnItemHandler(4239) {
+        @Override
+        public void handle(ItemOnItemEvent e) {
+            if (e.usedWith(4239, 4244)) {
+                e.getPlayer().getInventory().deleteItem(4239, 1); //Nettle tea
+                e.getPlayer().getInventory().deleteItem(4244, 1); //Empty porcelain cup
+                e.getPlayer().getInventory().addItem(4245, 1); //Cup of nettle tea
+                e.getPlayer().getInventory().addItem(1921, 1); //give back empty bowl
+            }
+        }
+
+        ;
+    };
+    public static ItemOnItemHandler handleNettleTea = new ItemOnItemHandler(4245) {
+        @Override
+        public void handle(ItemOnItemEvent e) {
+            if (e.usedWith(4245, 1921)) {
+                e.getPlayer().getInventory().deleteItem(4245, 1); //Nettle tea cup
+                e.getPlayer().getInventory().deleteItem(1921, 1); //Milk bucket
+                e.getPlayer().getInventory().addItem(4246, 1); //Cup of milky nettle tea
+                e.getPlayer().getInventory().addItem(1925, 1); //give back empty bucket
+            }
+        }
+    };
+
+    public static ItemClickHandler handleTea = new ItemClickHandler(4245,4246) {
+        @Override
+        public void handle(ItemClickEvent e) {
+            Player p = e.getPlayer();
+            if (e.getOption().equalsIgnoreCase("Drink"))
+            {
+                p.getInventory().removeItems(e.getItem());
+                p.heal(500);
+                p.restoreRunEnergy(20);
+                p.getInventory().addItem(4244,1);
+                return;
+            }
+            if (e.getOption().equalsIgnoreCase("Empty"))
+            {
+                p.getInventory().removeItems(e.getItem());
+                p.getInventory().addItem(4244,1);
+                return;
+            }
+            if (e.getOption().equalsIgnoreCase("drop")) {
+                p.getInventory().removeItems(e.getItem());
+                World.addGroundItem(e.getItem(), WorldTile.of(e.getPlayer().getTile()), e.getPlayer());
+            }
+        }
+    };
+    public static ItemClickHandler handleTeaB = new ItemClickHandler(4239, 4240) {
+        @Override
+        public void handle(ItemClickEvent e) {
+            Player p = e.getPlayer();
+            if (e.getOption().equalsIgnoreCase("Drink"))
+            {
+                p.getInventory().removeItems(e.getItem());
+                p.heal(500);
+                p.restoreRunEnergy(20);
+                p.getInventory().addItem(1923,1);
+                return;
+            }
+            if (e.getOption().equalsIgnoreCase("Empty"))
+            {
+                p.getInventory().removeItems(e.getItem());
+                p.getInventory().addItem(1923,1);
+                return;
+            }
+            if (e.getOption().equalsIgnoreCase("drop")) {
+                p.getInventory().removeItems(e.getItem());
+                World.addGroundItem(e.getItem(), WorldTile.of(e.getPlayer().getTile()), e.getPlayer());
+            }
+        }
+    };
+    public static ItemClickHandler handleNettleWater = new ItemClickHandler(4237) {
+        @Override
+        public void handle(ItemClickEvent e) {
+            Player p = e.getPlayer();
+            if (e.getOption().equalsIgnoreCase("Drink"))
+            {
+                p.getInventory().removeItems(e.getItem());
+                p.heal(1);
+                p.getInventory().addItem(1923,1);
+                return;
+            }
+            if (e.getOption().equalsIgnoreCase("Empty"))
+            {
+                p.getInventory().removeItems(e.getItem());
+                p.getInventory().addItem(1923,1);
+                return;
+            }
+            if (e.getOption().equalsIgnoreCase("drop")) {
+                p.getInventory().removeItems(e.getItem());
+                World.addGroundItem(e.getItem(), WorldTile.of(e.getPlayer().getTile()), e.getPlayer());
+            }
+        }
+    };
+    public static ItemClickHandler handleWaterBowl = new ItemClickHandler(1921) {
+        @Override
+        public void handle(ItemClickEvent e) {
+            Player p = e.getPlayer();
+            if (e.getOption().equalsIgnoreCase("Empty"))
+            {
+                p.getInventory().removeItems(e.getItem());
+                p.getInventory().addItem(1923,1);
+                return;
+            }
+            if (e.getOption().equalsIgnoreCase("drop")) {
+                p.getInventory().removeItems(e.getItem());
+                World.addGroundItem(e.getItem(), WorldTile.of(e.getPlayer().getTile()), e.getPlayer());
+            }
+        }
+    };
+    public static ItemClickHandler handleMilkBucket = new ItemClickHandler(1927) {
+        @Override
+        public void handle(ItemClickEvent e) {
+            Player p = e.getPlayer();
+            if (e.getOption().equalsIgnoreCase("Empty"))
+            {
+                p.getInventory().removeItems(e.getItem());
+                p.getInventory().addItem(1925,1);
+                return;
+            }
+            if (e.getOption().equalsIgnoreCase("drop")) {
+                p.getInventory().removeItems(e.getItem());
+                World.addGroundItem(e.getItem(), WorldTile.of(e.getPlayer().getTile()), e.getPlayer());
             }
         }
     };

@@ -1,8 +1,74 @@
 package com.rs.game.content.quests.ghostsahoy.npcs;
 
-public class OldCroneD {
-    private static int npcId = 9999;
+import com.rs.game.engine.dialogue.Conversation;
+import com.rs.game.engine.dialogue.Dialogue;
+import com.rs.game.engine.dialogue.HeadE;
+import com.rs.game.engine.dialogue.Options;
+import com.rs.game.engine.quest.Quest;
+import com.rs.game.model.entity.player.Player;
+import com.rs.lib.util.Utils;
+import com.rs.plugin.annotations.PluginEventHandler;
+import com.rs.plugin.events.NPCClickEvent;
+import com.rs.plugin.handlers.NPCClickHandler;
 
+@PluginEventHandler
+public class OldCroneD extends Conversation {
+    private static int npcId = 9989;
+
+    public static NPCClickHandler OldCroneD = new NPCClickHandler(new Object[]{npcId}) {
+        @Override
+        //Handle Right-Click
+        public void handle(NPCClickEvent e) {
+            switch (e.getOption()) {
+                //Start Conversation
+                case "Talk-To" -> e.getPlayer().startConversation(new OldCroneD(e.getPlayer()));
+            }
+        }
+    };
+
+    public OldCroneD(Player player) {
+        super(player);
+        if (player.getQuestManager().notStarted(Quest.GHOSTS_AHOY) && player.getQuestManager().notStarted(Quest.ANIMAL_MAGNETISM)) {
+            String[] preQuest = new String[]{
+                    "I lived here when this was all just fields, you know.",
+                    "When 100 years old you reach, look like a prune you will.",
+                    "I'm over 100 years old, you know.",
+            };
+
+                            addPlayer(HeadE.CONFUSED, "What is this place?");
+                            addNPC(npcId, HeadE.ANGRY, preQuest[(Utils.random(4))]);
+
+            }
+        if(player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 3) {
+
+            //Nettle Tea
+            if(!player.getInventory().containsItem(4239) )
+            {
+
+            }
+            //Nettle Tea
+            if(!player.getInventory().containsItem(4239))
+            {
+
+            }
+
+
+
+
+
+
+
+
+
+            player.getQuestManager().setStage(Quest.GHOSTS_AHOY, 4);
+        }
+        if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 2) {
+            //Speaking to Necrovarus again
+            addPlayer(HeadE.CALM_TALK, "Please, listen to me-");
+            addNPC(npcId, HeadE.ANGRY, "No – listen to me. Go from this place and do not return, or I will remove your head.;");
+        }
+
+    }
 }
 
     /*

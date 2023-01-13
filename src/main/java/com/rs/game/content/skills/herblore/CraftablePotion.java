@@ -102,7 +102,7 @@ public enum CraftablePotion {
 	SUPER_PRAYER(new Item(15329, 1), 94, 270.0, new Item[] { new Item(139, 1), new Item(6810, 1) }),
 	OVERLOAD(new Item(15333, 1), 96, 1000.0, new Item[] { new Item(269, 1), new Item(15309, 1), new Item(15313, 1), new Item(15317, 1), new Item(15321, 1), new Item(15325, 1)}),
 	PRAYER_RENEWAL(new Item(21632, 1), 94, 190.0, new Item[] { new Item(21628, 1), new Item(21622, 1) }),
-
+	NETTLE_WATER(new Item(4237, 1), 1, 1.0, new Item[] { new Item(1921, 1), new Item(4241, 1) }),
 	COCONUT_MILK(new Item(5935, 1), 1, 1.0, new Item[] { new Item(229, 1), new Item(5976, 1) }),
 	WEAPON_POISON_P_UNF(new Item(5936, 1), 73, 1.0, new Item[] { new Item(5935, 1), new Item(6016, 1) }),
 	WEAPON_POISON_P(new Item(5937, 1), 73, 165.0, new Item[] { new Item(5936, 1), new Item(223, 1) }),

@@ -175,6 +175,15 @@ public class Debug {
 			p.getInventory().addItem(Integer.valueOf(args[0]), args.length >= 2 ? Integer.valueOf(args[1]) : 1);
 			p.stopAll();
 		});
+		Commands.add(Rights.ADMIN, "id,Get item ID in slot [SlotNum]", "Gets item id from item in slot.", (p, args) -> {
+			if (ItemDefinitions.getDefs(Integer.valueOf(args[0])).getName().equals("null")) {
+				p.sendMessage("That item is unused.");
+				return;
+			}
+			;
+			p.sendMessage("" + p.getInventory().getItem(Integer.valueOf(args[0])-1) +"");
+			p.stopAll();
+		});
 
 		Commands.add(Rights.PLAYER, "setqstage [questName, stage]", "Resets the specified quest.", (p, args) -> {
 			for (Quest quest : Quest.values())

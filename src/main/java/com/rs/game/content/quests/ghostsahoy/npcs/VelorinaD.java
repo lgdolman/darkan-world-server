@@ -172,6 +172,13 @@ public class VelorinaD extends Conversation {
                 addNPC(npcId, HeadE.CALM, "She was a friend of mine. Had she died, I would have felt her spirit pass over to the next world, though I may not follow.");
                 player.getQuestManager().setStage(Quest.GHOSTS_AHOY, 3, true);
             }
+            if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 3) {
+                addPlayer(HeadE.CALM, "Do you know where this woman can be found?");
+                addNPC(npcId, HeadE.CALM, " I have a vision of a small wooden shack, the land it was built on the unholy soil of Morytania. ");
+                addNPC(npcId, HeadE.CALM, "I sense the sea is very close, and that there looms castles to the west and the east.");
+                addPlayer(HeadE.CALM, "If it was such a long time ago, won't she be dead already?");
+                addNPC(npcId, HeadE.CALM, "She was a friend of mine. Had she died, I would have felt her spirit pass over to the next world, though I may not follow.");
+            }
             if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 4) {
                 addPlayer(HeadE.CALM, "Do you know where I can find the Book of Haricanto?");
                 addNPC(npcId, HeadE.CALM, " Nobody knows what has happened to the Book. It was stolen when our port was raided by pirates many years ago, and never seen since.");
