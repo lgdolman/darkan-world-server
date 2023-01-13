@@ -28,6 +28,8 @@ import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.events.NPCClickEvent;
 import com.rs.plugin.handlers.NPCClickHandler;
 
+import static java.lang.Math.round;
+
 @PluginEventHandler
 public class GhostVillagerD extends Conversation {
 	private static int npcId = 1697;
@@ -54,13 +56,13 @@ public class GhostVillagerD extends Conversation {
 		super(player);
 		if (player.getEquipment().GhostEquipped()) {
 			if(BedsheetEquipped()) {
-				if (player.getEquipment().getHatId() == 4284) { //Can't wear normal bedsheet
+				if (player.getEquipment().getHatId() == 4284) { //Can't wear ATM
 					if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 1) {
 						//Talking to a villager wearing the plain bedsheet during quest
 						addPlayer(HeadE.CALM_TALK, "Would you sign this petition form, please?");
 						addNPC(npcId, HeadE.SKEPTICAL_HEAD_SHAKE, "Why are you wearing that bedsheet? If you're trying to pretend to be one of us, you're not fooling anybody – you're not even green!");
 					} else {
-						//Talking to a villager wearing the plain bedsheet outside of quest
+						//Talking to a villager wearing the plain bedsheet outside of quest. Client doesn't render. 
 						addPlayer(HeadE.HAPPY_TALKING, "Woooo wooo wooooo woooo");
 						addNPC(npcId, HeadE.SKEPTICAL_HEAD_SHAKE, "Why are you wearing that bedsheet? If you're trying to pretend to be one of us, you're not fooling anybody – you're not even green!");
 					}
@@ -105,12 +107,12 @@ public class GhostVillagerD extends Conversation {
 							}
 							case 2: {
 								//Pick a phrase from the unsuccessful options, do not pass go, do not collect a signature
-								addNPC(npcId, HeadE.CALM, fail[Utils.random(5)]);
+								addNPC(npcId, HeadE.CALM, fail[(Utils.random(5))]);
 								break;
 							}
 							case 3: {
 								//Pick a phrase from the charitable options
-								addNPC(npcId, HeadE.EVIL_LAUGH, charge[Utils.random(3)]);
+								addNPC(npcId, HeadE.EVIL_LAUGH, charge[(Utils.random(3))]);
 								//Roll for price between 1-3
 								int cost = Utils.random(1, 3);
 								addPlayer(HeadE.SKEPTICAL, "How much?");
