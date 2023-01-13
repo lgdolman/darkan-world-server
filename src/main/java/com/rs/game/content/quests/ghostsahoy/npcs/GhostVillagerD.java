@@ -55,7 +55,7 @@ public class GhostVillagerD extends Conversation {
 		if (player.getEquipment().GhostEquipped()) {
 			if(BedsheetEquipped()) {
 				if (player.getEquipment().getHatId() == 4284) { //Can't wear ATM
-					if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 1) {
+					if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 1 && player.getInventory().containsItem(4283)) {
 						//Talking to a villager wearing the plain bedsheet during quest
 						addPlayer(HeadE.CALM_TALK, "Would you sign this petition form, please?");
 						addNPC(npcId, HeadE.SKEPTICAL_HEAD_SHAKE, "Why are you wearing that bedsheet? If you're trying to pretend to be one of us, you're not fooling anybody – you're not even green!");
@@ -65,7 +65,7 @@ public class GhostVillagerD extends Conversation {
 						addNPC(npcId, HeadE.SKEPTICAL_HEAD_SHAKE, "Why are you wearing that bedsheet? If you're trying to pretend to be one of us, you're not fooling anybody – you're not even green!");
 					}
 				} else if (player.getEquipment().getHatId() == 4285) {
-					if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 1) {
+					if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 1 && player.getInventory().containsItem(4283)) {
 						//Talking to a villager wearing the green bedsheet
 						addPlayer(HeadE.CALM_TALK, "Would you sign this petition form, please?");
 						//Generate the strings for later
@@ -96,10 +96,9 @@ public class GhostVillagerD extends Conversation {
 								//Tell the player the current number of signatures
 								player.sendMessage("The ghost signs your petition. You have obtained " + player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("signatures") + " of 10 signatures so far.");
 								//Check for completion
-								if (player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("signatures") == 10) {
+								if (player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("signatures") >= 10) {
 									//Advance the quest
 									player.sendMessage("The petition is complete, you should return it to Gravingas.");
-									player.getQuestManager().setStage(Quest.GHOSTS_AHOY, 2);
 								}
 								break;
 							}
@@ -133,10 +132,8 @@ public class GhostVillagerD extends Conversation {
 														//Tell the player the number of signatures
 														player.sendMessage("The ghost signs your petition costing " + cost + " tokens. You have obtained " + player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("signatures") + " of 10 signatures so far.");
 														//Check for completion
-														if (player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("signatures") == 10) {
-															//Advance the quest
+														if (player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("signatures") >= 10) {
 															player.sendMessage("The petition is complete, you should return it to Gravingas.");
-															player.getQuestManager().setStage(Quest.GHOSTS_AHOY, 2);
 														}
 													} else {
 														//Handle insufficient tokens
@@ -162,7 +159,7 @@ public class GhostVillagerD extends Conversation {
 				}
 			}
 			else {
-				if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 1) {
+				if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 1 && player.getInventory().containsItem(4283)) {
 					//Final quest catch - Talking to a villager as a "mortal"
 					addPlayer(HeadE.CALM_TALK, "Would you sign this petition form, please?");
 					addNPC(npcId, HeadE.SHAKING_HEAD, "I'm sorry, but it's hard to believe that a mortal could be interested in helping us.");

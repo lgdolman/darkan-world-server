@@ -1,11 +1,16 @@
 package com.rs.game.content.quests.ghostsahoy;
 
+import com.rs.game.World;
 import com.rs.game.engine.quest.Quest;
 import com.rs.game.engine.quest.QuestHandler;
 import com.rs.game.engine.quest.QuestOutline;
 import com.rs.game.model.entity.player.Player;
 import com.rs.lib.Constants;
+import com.rs.lib.game.WorldTile;
 import com.rs.plugin.annotations.PluginEventHandler;
+import com.rs.plugin.events.ItemClickEvent;
+import com.rs.plugin.handlers.ItemClickHandler;
+
 import java.util.ArrayList;
 
 @QuestHandler(Quest.GHOSTS_AHOY)
@@ -76,4 +81,30 @@ public class GhostsAhoy extends QuestOutline {
         player.getSkills().addXpQuest(Constants.PRAYER, 2400);
         getQuest().sendQuestCompleteInterface(player, 4251, "The Ectophail", "2400 Prayer XP");
     }
+
+    public static ItemClickHandler handlePetition = new ItemClickHandler(4283) {
+        @Override
+        public void handle(ItemClickEvent e) {
+            Player p = e.getPlayer();
+            if(e.getOption().equalsIgnoreCase("count"))
+                e.getPlayer().sendMessage("You have obtained " + e.getPlayer().getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("signatures") + " of 10 signatures so far.");
+            if(e.getOption().equalsIgnoreCase("drop")) {
+                if(e.getPlayer().getQuestManager().isComplete(Quest.GHOSTS_AHOY)){
+                    e.getPlayer().getInventory().deleteItem(4283, 1);
+                }
+                else {
+                    e.getPlayer().sendOptionDialogue("Drop it? It will be destroyed and you will have to get new signatures.", ops -> {
+                        ops.add("Yes, drop it.", (() -> {
+                            e.getPlayer().getInventory().deleteItem(4283, 1);
+                            e.getPlayer().getQuestManager().getAttribs(Quest.GHOSTS_AHOY).setI("signatures", 0);
+                        }));
+                        ops.add("Nevermind.");
+                    });
+                }
+
+            }
+        }
+    };
 }
+
+
