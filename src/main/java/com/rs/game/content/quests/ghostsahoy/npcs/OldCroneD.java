@@ -13,7 +13,7 @@ import com.rs.plugin.handlers.NPCClickHandler;
 
 @PluginEventHandler
 public class OldCroneD extends Conversation {
-    private static int npcId = 1695;
+    private static final int npcId = 1695;
 
     public static NPCClickHandler OldCroneD = new NPCClickHandler(new Object[]{npcId}) {
         @Override
@@ -76,7 +76,7 @@ public class OldCroneD extends Conversation {
                                 {
                                     addPlayer(HeadE.CALM, "Here's a lovely cup of tea for you, in your own special cup.")
                                             .addNPC(npcId, HeadE.SHAKING_HEAD, "Oh no, it hasn't got milk in it. I only drink tea with milk, I'm afraid.")
-                                            .addNext(() ->{ player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).setB("OldCrowNettleTeaP", true);});
+                                            .addNext(() -> player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).setB("OldCrowNettleTeaP", true));
 
                                 }
                                 else if (player.getInventory().containsItem(4246) && player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTea") && player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaP") && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaM") && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaCompleted"))
@@ -85,7 +85,7 @@ public class OldCroneD extends Conversation {
                                             .addNext(() -> {
                                                 player.getInventory().deleteItem(4246, 1);
                                                 player.sendMessage("As the old woman drinks the cup of milky tea, enlightenment glows from within her eyes.");
-                                                player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).setB("OldCrowNettleTeaCompleted", true);
+                                                player.getQuestManager().setStage(Quest.GHOSTS_AHOY,4);
                                             });
                                 }
                             })
