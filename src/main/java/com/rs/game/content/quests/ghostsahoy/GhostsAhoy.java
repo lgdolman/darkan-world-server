@@ -115,7 +115,7 @@ public class GhostsAhoy extends QuestOutline {
                 e.getPlayer().getInventory().deleteItem(4239, 1); //Nettle tea
                 e.getPlayer().getInventory().deleteItem(4244, 1); //Empty porcelain cup
                 e.getPlayer().getInventory().addItem(4245, 1); //Cup of nettle tea
-                e.getPlayer().getInventory().addItem(1921, 1); //give back empty bowl
+                e.getPlayer().getInventory().addItem(1923, 1); //give back empty bowl
             }
         }
 
@@ -124,9 +124,9 @@ public class GhostsAhoy extends QuestOutline {
     public static ItemOnItemHandler handleNettleTea = new ItemOnItemHandler(4245) {
         @Override
         public void handle(ItemOnItemEvent e) {
-            if (e.usedWith(4245, 1921)) {
+            if (e.usedWith(4245, 1927)) {
                 e.getPlayer().getInventory().deleteItem(4245, 1); //Nettle tea cup
-                e.getPlayer().getInventory().deleteItem(1921, 1); //Milk bucket
+                e.getPlayer().getInventory().deleteItem(1927, 1); //Milk bucket
                 e.getPlayer().getInventory().addItem(4246, 1); //Cup of milky nettle tea
                 e.getPlayer().getInventory().addItem(1925, 1); //give back empty bucket
             }

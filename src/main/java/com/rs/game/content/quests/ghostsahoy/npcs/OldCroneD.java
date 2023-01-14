@@ -13,7 +13,7 @@ import com.rs.plugin.handlers.NPCClickHandler;
 
 @PluginEventHandler
 public class OldCroneD extends Conversation {
-    private static int npcId = 9989;
+    private static int npcId = 1695;
 
     public static NPCClickHandler OldCroneD = new NPCClickHandler(new Object[]{npcId}) {
         @Override
@@ -35,41 +35,71 @@ public class OldCroneD extends Conversation {
                     "I'm over 100 years old, you know.",
             };
 
-                            addPlayer(HeadE.CONFUSED, "What is this place?");
-                            addNPC(npcId, HeadE.ANGRY, preQuest[(Utils.random(4))]);
+            addPlayer(HeadE.CONFUSED, "What is this place?");
+            addNPC(npcId, HeadE.ANGRY, preQuest[(Utils.random(4))]);
 
-            }
-        if(player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 3) {
-
-            //Nettle Tea
-            if(!player.getInventory().containsItem(4239) )
-            {
-
-            }
-            //Nettle Tea
-            if(!player.getInventory().containsItem(4239))
-            {
-
-            }
-
-
-
-
-
-
-
-
-
-            player.getQuestManager().setStage(Quest.GHOSTS_AHOY, 4);
         }
-        if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 2) {
-            //Speaking to Necrovarus again
-            addPlayer(HeadE.CALM_TALK, "Please, listen to me-");
-            addNPC(npcId, HeadE.ANGRY, "No – listen to me. Go from this place and do not return, or I will remove your head.;");
-        }
+        if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 3) {
+            addOptions("I'm here about Necrovarus.", new Options() {
+                @Override
+                public void create() {
+                    option("I'm here about Necrovarus.", new Dialogue()
+                            .addPlayer(HeadE.CALM, "I'm here about Necrovarus.")
+                            .addNPC(npcId, HeadE.SAD, " I don't remember; I am so old and my memory goes back only so far...")
+                            .addPlayer(HeadE.CALM, "Is there anything that can help to refresh your memory?")
+                            .addNPC(npcId, HeadE.HAPPY_TALKING, "Yes, I would love a nice hot cup of nettle tea.")
+                            .addNext(() -> {
 
+                                if (!player.getInventory().containsItem(4239) && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTea") && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaP") && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaM") && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaCompleted"))
+                                {
+                                    addPlayer(HeadE.CONFUSED, "Do you know where I can find nettles around here?")
+                                            .addNPC(npcId, HeadE.CALM_TALK, "I believe they grow wild in the Haunted Forest.");
+
+                                }
+                                else if (player.getInventory().containsItem(4239) && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTea") && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaP") && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaM") && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaCompleted"))
+                                {
+                                    addPlayer(HeadE.CALM, "Here's some tea for you, like you asked.")
+                                            .addNPC(npcId, HeadE.SHAKING_HEAD, "Yes, but it's not in my special cup! I only ever drink from my special cup!!")
+                                            .addPlayer(HeadE.SKEPTICAL, "I see. Can I have this special cup, then?")
+                                            .addNPC(npcId, HeadE.HAPPY_TALKING, "It's here somewhere..")
+                                            .addNext(() -> {
+                                                if (player.getInventory().hasFreeSlots()) {
+                                                    player.getInventory().addItem(4244);
+                                                    player.sendMessage("The old crone gives you her special cup.");
+                                                    player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).setB("OldCrowNettleTea", true);
+                                                } else {
+                                                    addPlayer(HeadE.SHAKING_HEAD, "Actually, I don't have room for it.");
+                                                }
+                                            });
+                                }
+                                else if (player.getInventory().containsItem(4245) && player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTea") && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaP") && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaM") && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaCompleted"))
+                                {
+                                    addPlayer(HeadE.CALM, "Here's a lovely cup of tea for you, in your own special cup.")
+                                            .addNPC(npcId, HeadE.SHAKING_HEAD, "Oh no, it hasn't got milk in it. I only drink tea with milk, I'm afraid.")
+                                            .addNext(() ->{ player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).setB("OldCrowNettleTeaP", true);});
+
+                                }
+                                else if (player.getInventory().containsItem(4246) && player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTea") && player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaP") && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaM") && !player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getB("OldCrowNettleTeaCompleted"))
+                                {
+                                    addPlayer(HeadE.CALM, "Here's a lovely cup of milky tea for you, in your own special cup.")
+                                            .addNext(() -> {
+                                                player.getInventory().deleteItem(4246, 1);
+                                                player.sendMessage("As the old woman drinks the cup of milky tea, enlightenment glows from within her eyes.");
+                                                player.getQuestManager().getAttribs(Quest.GHOSTS_AHOY).setB("OldCrowNettleTeaCompleted", true);
+                                            });
+                                }
+                            })
+                    );
+                    option("I'm here about the farmers east of here.", new Dialogue()
+                            .addPlayer(HeadE.SHAKING_HEAD, "I'm here about the farmers east of here. ")
+                            .addNPC(npcId, HeadE.SHAKING_HEAD, "What farmers?") //TODO
+                    );
+                }
+            });
+        }
     }
 }
+
 
     /*
     Custom Order
