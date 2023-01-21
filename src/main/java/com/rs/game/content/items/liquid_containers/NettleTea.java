@@ -3,8 +3,11 @@ package com.rs.game.content.items.liquid_containers;
 import com.rs.game.World;
 import com.rs.lib.game.Item;
 import com.rs.lib.game.WorldTile;
+import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.handlers.ItemClickHandler;
 import com.rs.plugin.handlers.ItemOnItemHandler;
+
+@PluginEventHandler
 
 public class NettleTea {
     private static int nettleTea = 4239; //Nettle tea

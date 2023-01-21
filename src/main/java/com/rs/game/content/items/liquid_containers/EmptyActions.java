@@ -2,7 +2,9 @@ package com.rs.game.content.items.liquid_containers;
 
 import com.rs.game.World;
 import com.rs.lib.game.WorldTile;
+import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.handlers.ItemClickHandler;
+@PluginEventHandler
 
 public class EmptyActions {
 
