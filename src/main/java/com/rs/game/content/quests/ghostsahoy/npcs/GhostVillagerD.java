@@ -25,25 +25,32 @@ import com.rs.game.engine.quest.Quest;
 import com.rs.game.model.entity.player.Player;
 import com.rs.lib.util.Utils;
 import com.rs.plugin.annotations.PluginEventHandler;
-import com.rs.plugin.events.NPCClickEvent;
 import com.rs.plugin.handlers.NPCClickHandler;
 
 @PluginEventHandler
 public class GhostVillagerD extends Conversation {
 	private static int npcId = 1697;
 
-	public static NPCClickHandler GhostVillagerD = new NPCClickHandler(new Object[]{npcId}) {
-		@Override
+	public static NPCClickHandler GhostVillagerD = new NPCClickHandler(new Object[] { npcId }, e -> {
 		//Handle Right-Click
-		public void handle(NPCClickEvent e) {
-			switch (e.getOption()) {
-				//Start Conversation
-				case "Talk-To" -> e.getPlayer().startConversation(new GhostVillagerD(e.getPlayer()));
+		switch (e.getOption()) {
+			//Start Conversation
+			case "Talk-To" -> {
+				e.getPlayer().startConversation(new GhostVillagerD(e.getPlayer()));
 			}
 		}
-	};
+	});
 
-	public boolean BedsheetEquipped() {
+	public static boolean ghostEquipped(Player player) {
+		int neckId = player.getEquipment().getNeckId();
+		if (neckId == -1)
+			return false;
+		else {
+			return ItemDefinitions.getDefs(neckId).getName().contains("Ghostspeak");
+		}
+	}
+
+	public static boolean bedsheetEquipped(Player player) {
 		int helmId = player.getEquipment().getHatId();
 		if (helmId == -1)
 			return false;
@@ -52,8 +59,8 @@ public class GhostVillagerD extends Conversation {
 
 	public GhostVillagerD(Player player) {
 		super(player);
-		if (player.getEquipment().GhostEquipped()) {
-			if(BedsheetEquipped()) {
+		if (ghostEquipped(player)) {
+			if(bedsheetEquipped(player)) {
 				if (player.getEquipment().getHatId() == 4284) { //Can't wear ATM
 					if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 1 && player.getInventory().containsItem(4283)) {
 						//Talking to a villager wearing the plain bedsheet during quest
@@ -87,7 +94,7 @@ public class GhostVillagerD extends Conversation {
 								"It'll cost you...",
 						};
 						//Roll for success
-						switch (Utils.random(1,4)) {
+						switch (Utils.random(3)) {
 							case 1: {
 								//Pick a phrase from the successful options
 								addNPC(npcId, HeadE.CALM, successful[Utils.random(3)]);
@@ -151,10 +158,12 @@ public class GhostVillagerD extends Conversation {
 								break;
 							}
 						}
-					} else {
+					}
+					else {
 						//Handle the post quest response if wearing a bedsheet
 						addPlayer(HeadE.HAPPY_TALKING, "Woooo wooo wooooo woooo");
 						addNPC(npcId, HeadE.SKEPTICAL_HEAD_SHAKE, "Sorry I don't speak ghost...");
+						player.sendMessage("The ghost won't speak to you while wearing a bedsheet");
 					}
 				}
 			}
@@ -185,16 +194,3 @@ public class GhostVillagerD extends Conversation {
 		}
 	}
 }
-
-/*
-Xenophobia
-
-
-
-Asking the same villager twice in a row
-Player: Would you sign this petition form, please?
-Ghost villager: You only just asked me the same thing! Leave me alone – I've had my say!
-After getting the 10th signature
-You have succeeded in obtaining 10 signatures on the petition form!
-
- */

@@ -1,5 +1,7 @@
 package com.rs.game.content.quests.ghostsahoy.npcs;
 
+import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.game.content.world.areas.port_phasmatys.PortPhasmatys;
 import com.rs.game.engine.dialogue.Conversation;
 import com.rs.game.engine.dialogue.Dialogue;
 import com.rs.game.engine.dialogue.HeadE;
@@ -14,21 +16,27 @@ import com.rs.plugin.handlers.NPCClickHandler;
 public class VelorinaD extends Conversation {
     private static int npcId = 1683;
 
-    public static NPCClickHandler VelorinaD = new NPCClickHandler(new Object[]{npcId}) {
-        @Override
+    public static NPCClickHandler VelorinaD = new NPCClickHandler(new Object[] { npcId }, e -> {
         //Handle Right-Click
-        public void handle(NPCClickEvent e) {
-            switch (e.getOption()) {
-                //Start Conversation
-                case "Talk-To" -> e.getPlayer().startConversation(new VelorinaD(e.getPlayer()));
-            }
+        switch (e.getOption()) {
+            //Start Conversation
+            case "Talk-To" -> e.getPlayer().startConversation(new VelorinaD(e.getPlayer()));
         }
-    };
+    });
+
+    public static boolean ghostEquipped(Player player) {
+        int neckId = player.getEquipment().getNeckId();
+        if (neckId == -1)
+            return false;
+        else {
+            return ItemDefinitions.getDefs(neckId).getName().contains("Ghostspeak");
+        }
+    }
 
 
     public VelorinaD(Player player) {
         super(player);
-        if (player.getEquipment().GhostEquipped()) {
+        if (ghostEquipped(player)) {
             addOptions("What would you like to say?", new Options() {
                 @Override
                 public void create() {
@@ -205,8 +213,8 @@ public class VelorinaD extends Conversation {
             }
         }
         else {
-                addNPC(npcId, HeadE.CALM_TALK, "Woooowoooooo woooooo!");
-                addSimple("You cannot understand a word the ghost is saying.");
-            }
+            addNPC(npcId, HeadE.CALM_TALK, "Woooowoooooo woooooo!");
+            addSimple("You cannot understand a word the ghost is saying.");
         }
     }
+}

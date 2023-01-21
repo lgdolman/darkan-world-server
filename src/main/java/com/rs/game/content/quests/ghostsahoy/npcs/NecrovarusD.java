@@ -25,27 +25,32 @@ import com.rs.game.engine.quest.Quest;
 import com.rs.game.model.entity.player.Player;
 import com.rs.lib.util.Utils;
 import com.rs.plugin.annotations.PluginEventHandler;
-import com.rs.plugin.events.NPCClickEvent;
 import com.rs.plugin.handlers.NPCClickHandler;
 
 @PluginEventHandler
 public class NecrovarusD extends Conversation {
     private static int npcId = 1684;
 
-    public static NPCClickHandler NecrovarusD = new NPCClickHandler(new Object[]{npcId}) {
-        @Override
+    public static NPCClickHandler NecrovarusD = new NPCClickHandler(new Object[] { npcId }, e -> {
         //Handle Right-Click
-        public void handle(NPCClickEvent e) {
             switch (e.getOption()) {
                 //Start Conversation
                 case "Talk-To" -> e.getPlayer().startConversation(new NecrovarusD(e.getPlayer()));
             }
+        });
+
+    public static boolean ghostEquipped(Player player) {
+        int neckId = player.getEquipment().getNeckId();
+        if (neckId == -1)
+            return false;
+        else {
+            return ItemDefinitions.getDefs(neckId).getName().contains("Ghostspeak");
         }
-    };
+    }
 
     public NecrovarusD(Player player) {
         super(player);
-        if(!player.getEquipment().GhostEquipped())
+        if(!ghostEquipped(player))
         {
             //Handle no ghostspeak
             addNPC(npcId, HeadE.FRUSTRATED, "Woooo wooo wooooo woooo");
@@ -66,15 +71,15 @@ public class NecrovarusD extends Conversation {
                 public void create() {
                     option("What is this place?", new Dialogue()
                             .addPlayer(HeadE.CONFUSED, "What is this place?")
-                            .addNPC(npcId, HeadE.ANGRY, preGA[(Utils.random(6))])
+                            .addNPC(npcId, HeadE.ANGRY, preGA[(Utils.random(5))])
                     );
                     option("What happened to everyone here?", new Dialogue()
                             .addPlayer(HeadE.CONFUSED, "What happened to everyone here?")
-                            .addNPC(npcId, HeadE.ANGRY, preGA[(Utils.random(6))])
+                            .addNPC(npcId, HeadE.ANGRY, preGA[(Utils.random(5))])
                     );
                     option("How do I get into the town?", new Dialogue()
                             .addPlayer(HeadE.CONFUSED, "How do I get into the town?")
-                            .addNPC(npcId, HeadE.ANGRY, preGA[(Utils.random(6))])
+                            .addNPC(npcId, HeadE.ANGRY, preGA[(Utils.random(5))])
                     );
                 }
 

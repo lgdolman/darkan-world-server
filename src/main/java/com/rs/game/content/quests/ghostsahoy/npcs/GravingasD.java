@@ -17,15 +17,14 @@
 package com.rs.game.content.quests.ghostsahoy.npcs;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.game.content.world.areas.port_phasmatys.PortPhasmatys;
 import com.rs.game.engine.dialogue.Conversation;
 import com.rs.game.engine.dialogue.Dialogue;
 import com.rs.game.engine.dialogue.HeadE;
 import com.rs.game.engine.dialogue.Options;
 import com.rs.game.engine.quest.Quest;
-import com.rs.game.engine.quest.QuestManager;
 import com.rs.game.model.entity.player.Player;
 import com.rs.plugin.annotations.PluginEventHandler;
-import com.rs.plugin.events.NPCClickEvent;
 import com.rs.plugin.handlers.NPCClickHandler;
 
 @PluginEventHandler
@@ -33,20 +32,26 @@ public class GravingasD extends Conversation {
 	private static int npcId = 6075;
 
 
-	public static NPCClickHandler GhostVillager = new NPCClickHandler(new Object[]{npcId}) {
-		@Override
+	public static NPCClickHandler GravingasD = new NPCClickHandler(new Object[] { npcId }, e -> {
 		//Handle Right-Click
-		public void handle(NPCClickEvent e) {
 			switch (e.getOption()) {
 				//Start Conversation
 				case "Talk-To" -> e.getPlayer().startConversation(new GravingasD(e.getPlayer()));
 			}
+		});
+
+	public static boolean ghostEquipped(Player player) {
+		int neckId = player.getEquipment().getNeckId();
+		if (neckId == -1)
+			return false;
+		else {
+			return ItemDefinitions.getDefs(neckId).getName().contains("Ghostspeak");
 		}
-	};
+	}
 
 	public GravingasD(Player player) {
 		super(player);
-		if (player.getEquipment().GhostEquipped())
+		if (ghostEquipped(player))
 		{
 			if(player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 0) {
 				addNPC(npcId, HeadE.FRUSTRATED, "Will you join with me and protest against the evil ban of Necrovarus and his disciples?");
@@ -124,7 +129,7 @@ public class GravingasD extends Conversation {
 			addNPC(npcId,HeadE.FRUSTRATED,"Woooo wooo wooooo woooo");
 			create();
 			player.sendMessage("You cannot understand the ghost.");
-		};
+		}
 	}
 }
 

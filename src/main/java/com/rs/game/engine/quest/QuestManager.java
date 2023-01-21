@@ -27,7 +27,6 @@ import com.rs.game.model.entity.player.Player;
 import com.rs.game.model.entity.player.Skills;
 import com.rs.lib.util.GenericAttribMap;
 import com.rs.plugin.annotations.PluginEventHandler;
-import com.rs.plugin.events.ButtonClickEvent;
 import com.rs.plugin.handlers.ButtonClickHandler;
 
 @PluginEventHandler
@@ -47,21 +46,18 @@ public class QuestManager {
 		questAttribs = new HashMap<>();
 	}
 
-	public static ButtonClickHandler handleQuestTabButtons = new ButtonClickHandler(190) {
-		@Override
-		public void handle(ButtonClickEvent e) {
-			if (e.getComponentId() == 38)
-				e.getPlayer().getQuestManager().setSort(e.getSlotId());
-			else if (e.getComponentId() == 3)
-				e.getPlayer().getQuestManager().toggleFilter();
-			else if (e.getComponentId() == 7)
-				e.getPlayer().getQuestManager().toggleHideDone();
-			else if (e.getComponentId() == 15) {
-				Quest quest = Quest.forSlot(e.getSlotId());
-                e.getPlayer().getQuestManager().showQuestDetailInterface(quest);
-			}
+	public static ButtonClickHandler handleQuestTabButtons = new ButtonClickHandler(190, e -> {
+		if (e.getComponentId() == 38)
+			e.getPlayer().getQuestManager().setSort(e.getSlotId());
+		else if (e.getComponentId() == 3)
+			e.getPlayer().getQuestManager().toggleFilter();
+		else if (e.getComponentId() == 7)
+			e.getPlayer().getQuestManager().toggleHideDone();
+		else if (e.getComponentId() == 15) {
+			Quest quest = Quest.forSlot(e.getSlotId());
+            e.getPlayer().getQuestManager().showQuestDetailInterface(quest);
 		}
-	};
+	});
 
     public void showQuestDetailInterface(Quest quest) {
         if (quest != null) {
@@ -214,8 +210,8 @@ public class QuestManager {
 	}
 	public boolean notStarted(Quest quest, String actionForUnimplemented) {
 		if (!quest.isImplemented())
-			return quest.meetsReqs(player, actionForUnimplemented);
-		if (getStage(quest) == 0)
+			return true;
+		if (getStage(quest) <= 0)
 			return true;
 		if (actionForUnimplemented != null)
 			player.sendMessage("You must have completed " + quest.getDefs().name + " " + actionForUnimplemented);
