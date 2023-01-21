@@ -16,8 +16,11 @@
 //
 package com.rs.game.content.world.areas.port_phasmatys.npcs;
 
+import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.game.content.quests.ghostsahoy.npcs.OldCroneD;
 import com.rs.game.engine.dialogue.Dialogue;
 import com.rs.game.engine.dialogue.HeadE;
+import com.rs.game.model.entity.player.Player;
 import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.handlers.NPCClickHandler;
 import com.rs.utils.shop.ShopsHandler;
@@ -26,24 +29,33 @@ import com.rs.utils.shop.ShopsHandler;
 public class GhostShopkeeper {
 	private static int npcId = 1699;
 
+	public static boolean ghostEquipped(Player player) {
+		int neckId = player.getEquipment().getNeckId();
+		if (neckId == -1)
+			return false;
+		else {
+			return ItemDefinitions.getDefs(neckId).getName().contains("Ghostspeak");
+		}
+	}
+
 	public static NPCClickHandler ghostShopkeeper = new NPCClickHandler(new Object[] { npcId }, e -> {
-		switch (e.getOption()) {
-		case "Talk-to" -> {
-			if (e.getPlayer().getEquipment().getNeckId() != 552) {
+		if (e.getOption().equalsIgnoreCase("talk-to")) {
+			if (!ghostEquipped(e.getPlayer())) {
 				e.getPlayer().startConversation(new Dialogue().addNPC(npcId, HeadE.FRUSTRATED, "Woooo wooo wooooo woooo"));
 				e.getPlayer().sendMessage("You cannot understand the ghost.");
 				return;
 			}
-				
+
 			e.getPlayer().startConversation(new Dialogue()
 					.addNPC(npcId, HeadE.SECRETIVE, "Would you like to buy or sell anything?")
 					.addOptions(ops -> {
 						ops.add("I'd like to see what you have for sale.", () -> ShopsHandler.openShop(e.getPlayer(), "port_phasmatys_general_store"));
 						ops.add("No thanks.")
-							.addPlayer(HeadE.CONFUSED, "No thanks.");
+								.addPlayer(HeadE.CONFUSED, "No thanks.");
 					}));
 		}
-		case "Trade" -> ShopsHandler.openShop(e.getPlayer(), "port_phasmatys_general_store");
+		if (e.getOption().equalsIgnoreCase("trade")) {
+			ShopsHandler.openShop(e.getPlayer(), "port_phasmatys_general_store");
 		}
 	});
 }
