@@ -211,45 +211,100 @@ public class WreckedShipHandler {
             case 5269 -> {
                 //X Movements
                 if (e.getObject().getTile().isAt(3604, 3550, 0)) {
-                    AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
-                    e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                    if(Utils.random(20)<=2){
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
+                        e.getPlayer().sendMessage("You fail to make it to the other side.");
+                        e.getPlayer().drainRunEnergy(5);                    }
+                    else {
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
+                        e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                        e.getPlayer().drainRunEnergy(5);
+                    }
                 }
                 if (e.getObject().getTile().isAt(3602, 3550, 0)) {
-                    AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
-                    e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                    if(Utils.random(20)<=2){
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
+                        e.getPlayer().sendMessage("You fail to make it to the other side.");
+                        e.getPlayer().drainRunEnergy(5);
+                    }
+                    else {
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
+                        e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                        e.getPlayer().drainRunEnergy(5);
+                    }
                 }
                 if (e.getObject().getTile().isAt(3599, 3552, 0)) {
-                    AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
-                    e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                    if(Utils.random(20)<=2){
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
+                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
+                    else {
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
+                        e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                        e.getPlayer().drainRunEnergy(5);}
                 }
                 if (e.getObject().getTile().isAt(3597, 3552, 0)) {
-                    AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
-                    e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                    if(Utils.random(20)<=2){
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
+                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
+                    else {
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
+                        e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                        e.getPlayer().drainRunEnergy(5);}
                 }
                 if (e.getObject().getTile().isAt(3599, 3564, 0)) {
-                    AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
-                    e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                    if(Utils.random(20)<=2){
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
+                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
+                    else {
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
+                        e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                        e.getPlayer().drainRunEnergy(5);}
                 }
                 if (e.getObject().getTile().isAt(3601, 3564, 0)) {
-                    AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
-                    e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                    if(Utils.random(20)<=2){
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
+                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
+                    else {
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
+                        e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                        e.getPlayer().drainRunEnergy(5);}
                 }
                 //Y Movements
                 if (e.getObject().getTile().isAt(3595, 3554, 0)) {
-                    AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, e.getPlayer().getY() > e.getObject().getY() ? -4 : 4, 0), 769, 1);
-                    e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                    if(Utils.random(20)<=2){
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
+                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
+                    else {
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, e.getPlayer().getY() > e.getObject().getY() ? -4 : 4, 0), 769, 1);
+                        e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                        e.getPlayer().drainRunEnergy(5);}
                 }
                 if (e.getObject().getTile().isAt(3595, 3556, 0)) {
-                    AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, e.getPlayer().getY() > e.getObject().getY() ? -4 : 4, 0), 769, 1);
-                    e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                    if(Utils.random(20)<=2){
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
+                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
+                    else {
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, e.getPlayer().getY() > e.getObject().getY() ? -4 : 4, 0), 769, 1);
+                        e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                        e.getPlayer().drainRunEnergy(5);}
                 }
                 if (e.getObject().getTile().isAt(3597, 3559, 0)) {
-                    AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, e.getPlayer().getY() > e.getObject().getY() ? -4 : 4, 0), 769, 1);
-                    e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                    if(Utils.random(20)<=2){
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
+                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
+                    else {
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, e.getPlayer().getY() > e.getObject().getY() ? -4 : 4, 0), 769, 1);
+                        e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                        e.getPlayer().drainRunEnergy(5);}
                 }
                 if (e.getObject().getTile().isAt(3597, 3561, 0)) {
-                    AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, e.getPlayer().getY() > e.getObject().getY() ? -4 : 4, 0), 769, 1);
-                    e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                    if(Utils.random(20)<=2){
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
+                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
+                    else {
+                        AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, e.getPlayer().getY() > e.getObject().getY() ? -4 : 4, 0), 769, 1);
+                        e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
+                        e.getPlayer().drainRunEnergy(5);}
                 }
             }
         }
