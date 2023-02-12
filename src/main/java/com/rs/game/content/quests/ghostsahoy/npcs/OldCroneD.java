@@ -18,9 +18,9 @@ public class OldCroneD extends Conversation {
     private static final int npcId = 1695;
 
     public static NPCClickHandler OldCroneD = new NPCClickHandler(new Object[] { npcId }, e -> {
-            if (e.getOption().equalsIgnoreCase("talk-to")) {
-                e.getPlayer().startConversation(new OldCroneD(e.getPlayer()));
-            }
+        if (e.getOption().equalsIgnoreCase("talk-to")) {
+            e.getPlayer().startConversation(new OldCroneD(e.getPlayer()));
+        }
     });
 
     public static boolean ghostEquipped(Player player) {
@@ -114,7 +114,7 @@ public class OldCroneD extends Conversation {
                 //(If the player doesn't have a ghostspeak amulet:)
                 addPlayer(HeadE.CALM_TALK, "No I don't, I'm afraid.");
                 addNPC(npcId, HeadE.CALM_TALK, "Well, you'll need to find one.");
-            } else if (!ghostEquipped(player)  && player.getInventory().containsItem(4250)) {
+            } else if (!ghostEquipped(player) && player.getInventory().containsItem(4250)) {
                 //(If the player has a ghostspeak amulet in the backpack:)
                 addPlayer(HeadE.CALM_TALK, "Yes, I'm carrying one in my bag.");
                 addNPC(npcId, HeadE.CALM_TALK, "Well, that's a stroke of luck.");
@@ -150,6 +150,7 @@ public class OldCroneD extends Conversation {
 
                                     player.getInventory().addItem(4253);
                                     player.sendMessage("The old woman gives you a toy boat.");
+                                    player.getQuestManager().setStage(Quest.GHOSTS_AHOY, 6);
                                 } else {
                                     addPlayer(HeadE.SHAKING_HEAD, "Sorry, I don't have the space for that");
                                 }
@@ -162,6 +163,44 @@ public class OldCroneD extends Conversation {
                 }
             });
             return;
+        }
+        if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 6) {
+            addOptions("Remind me - what can I do about Necrovarus?", new Options() {
+                @Override
+                public void create() {
+                    option("Remind me - what can I do about Necrovarus?", new Dialogue()
+
+                    );
+                    option("What did you want me to get for you?", new Dialogue()
+                    );
+                    if(player.getInventory().containsItem(4253)){
+                    option("What did you want me to get for you?", new Dialogue()
+                        //If the player has the model ship:
+
+                            .addPlayer(HeadE.SHAKING_HEAD, "I am afraid I have not found your son yet.")
+                            .addNPC(npcId, HeadE.SAD, "I never expected that you would find him - although if you do, please let me know.")
+                    );
+                    }
+                    else {
+                        option("What did you want me to get for you?", new Dialogue()
+                                .addPlayer(HeadE.SAD, "I am afraid I have lost the boat you gave to me.")
+                                .addNPC(npcId, HeadE.HAPPY_TALKING, "No, I've found it - here you go.")
+                                .addNext(() -> {
+                                    if (player.getInventory().hasFreeSlots()) {
+
+                                        player.getInventory().addItem(4253);
+                                        player.sendMessage("The old woman gives you a toy boat.");
+                                        player.getQuestManager().setStage(Quest.GHOSTS_AHOY, 6);
+                                    } else {
+                                        addPlayer(HeadE.SHAKING_HEAD, "Sorry, I don't have the space for that");
+                                    }
+                                }));
+                    }
+
+                }
+            });
+            return;
+
         }
     }
 }

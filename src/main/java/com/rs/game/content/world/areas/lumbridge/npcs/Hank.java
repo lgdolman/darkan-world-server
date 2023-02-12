@@ -12,18 +12,16 @@ public class Hank extends Conversation {
     //Identify NPC by ID
     private static int npcId = 8864;
 
-    public static NPCClickHandler Hank = new NPCClickHandler(new Object[]{npcId}, e -> {
-    	 switch (e.getOption()) {
-         //Start Conversation
-         case "Talk-to" -> e.getPlayer().startConversation(new Hank(e.getPlayer()));
-         case "Trade-General-Store" -> ShopsHandler.openShop(e.getPlayer(), "lumbridge_fishing_supplies");
-     }
+    public static NPCClickHandler Hank = new NPCClickHandler(new Object[] { npcId }, e -> {
+        if (e.getOption().equalsIgnoreCase("talk-to")) {
+            e.getPlayer().startConversation(new Hank(e.getPlayer()));
+        }
+        if (e.getOption().equalsIgnoreCase("Trade")) {
+            ShopsHandler.openShop(e.getPlayer(), "lumbridge_fishing_supplies");
+        }
     });
 
     public Hank(Player player) {
         super(player);
     };
 }
-/*
-This fixes Hank and restores default store conversation
- */

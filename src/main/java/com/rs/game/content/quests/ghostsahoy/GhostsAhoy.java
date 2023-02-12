@@ -1,16 +1,15 @@
 package com.rs.game.content.quests.ghostsahoy;
 
-import com.rs.game.World;
 import com.rs.game.engine.quest.Quest;
 import com.rs.game.engine.quest.QuestHandler;
 import com.rs.game.engine.quest.QuestOutline;
 import com.rs.game.model.entity.player.Player;
 import com.rs.lib.Constants;
 import com.rs.lib.game.Item;
-import com.rs.lib.game.WorldTile;
 import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.handlers.ItemClickHandler;
 import com.rs.plugin.handlers.ItemOnItemHandler;
+import com.rs.plugin.handlers.ObjectClickHandler;
 
 import java.util.ArrayList;
 
@@ -101,6 +100,34 @@ public class GhostsAhoy extends QuestOutline {
 
         }
     });
+    public static ItemClickHandler handleKeyOnComplete = new ItemClickHandler(new Object[]{4274}, e -> {
+        if (e.getOption().equalsIgnoreCase("take")) {
+            if (e.getPlayer().getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("F1") + e.getPlayer().getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("F2") + e.getPlayer().getQuestManager().getAttribs(Quest.GHOSTS_AHOY).getI("F2") <= 3) {
+                e.getPlayer().getInventory().deleteItem(4273, 1);
+                e.getPlayer().getQuestManager().getAttribs(Quest.GHOSTS_AHOY).setI("F3" ,1 );
+                e.getPlayer().sendMessage("The key crumbles in your bag.");
+            }
+        }
+    });
+
+    public static ItemClickHandler handleTreasureMap = new ItemClickHandler(new Object[]{4277}, e -> {
+        if (e.getOption().equalsIgnoreCase("read")) {
+            e.getPlayer().getInterfaceManager().sendInterface(8);
+        }
+        if (e.getOption().equalsIgnoreCase("follow")) {
+            e.getPlayer().sendMessage("Not implemented."); //TODO Map follow
+        }
+    });
+
+    public static ItemOnItemHandler handleMap = new ItemOnItemHandler(new int[]{4274, 4274}, e -> {
+        if (e.getPlayer().getInventory().containsItem(4274, 3)) {
+            e.getPlayer().getInventory().removeItems(new Item(4274, 3));
+            e.getPlayer().getInventory().addItem(new Item(4277, 1), true);
+        }
+    });
 }
+
+
+
 
 

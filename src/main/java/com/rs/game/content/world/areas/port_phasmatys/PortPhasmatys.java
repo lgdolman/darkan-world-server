@@ -16,13 +16,20 @@
 //
 package com.rs.game.content.world.areas.port_phasmatys;
 
+import com.rs.game.World;
 import com.rs.game.content.minigames.ectofuntus.Ectofuntus;
 import com.rs.game.engine.quest.Quest;
+import com.rs.game.model.entity.npc.OwnedNPC;
+import com.rs.game.model.object.GameObject;
+import com.rs.lib.game.Animation;
 import com.rs.lib.game.WorldTile;
+import com.rs.lib.net.ClientPacket;
+import com.rs.lib.util.Utils;
 import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.handlers.ItemClickHandler;
 import com.rs.plugin.handlers.NPCClickHandler;
 import com.rs.plugin.handlers.ObjectClickHandler;
+import com.rs.utils.Ticks;
 
 @PluginEventHandler
 public class PortPhasmatys {
@@ -51,5 +58,6 @@ public class PortPhasmatys {
 			case 7434 -> e.getPlayer().useStairs(828, WorldTile.of(3682, 9961, 0), 1, 2);
 		}
 	});
+
 }
 
