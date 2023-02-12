@@ -35,7 +35,6 @@ import com.rs.cache.loaders.map.RegionSize;
 import com.rs.game.World;
 import com.rs.game.content.Effect;
 import com.rs.game.content.combat.PlayerCombat;
-import com.rs.game.content.skills.dungeoneering.npcs.Stomp;
 import com.rs.game.content.skills.magic.Magic;
 import com.rs.game.content.skills.prayer.Prayer;
 import com.rs.game.content.skills.summoning.Familiar;
@@ -51,6 +50,7 @@ import com.rs.game.model.entity.pathing.DumbRouteFinder;
 import com.rs.game.model.entity.pathing.EntityStrategy;
 import com.rs.game.model.entity.pathing.FixedTileStrategy;
 import com.rs.game.model.entity.pathing.ObjectStrategy;
+import com.rs.game.model.entity.pathing.Route;
 import com.rs.game.model.entity.pathing.RouteEvent;
 import com.rs.game.model.entity.pathing.RouteFinder;
 import com.rs.game.model.entity.pathing.WalkStep;
@@ -74,6 +74,7 @@ import com.rs.lib.util.Utils;
 import com.rs.lib.util.Vec2;
 import com.rs.plugin.PluginManager;
 import com.rs.plugin.events.PlayerStepEvent;
+import com.rs.utils.TriFunction;
 import com.rs.utils.WorldUtil;
 
 public abstract class Entity {
@@ -501,15 +502,13 @@ public abstract class Entity {
 
 	public boolean calcFollow(Object target, int maxStepsCount, boolean intelligent) {
 		if (intelligent) {
-			int steps = RouteFinder.findRoute(RouteFinder.WALK_ROUTEFINDER, getX(), getY(), getPlane(), getSize(), target instanceof GameObject go ? new ObjectStrategy(go) : target instanceof Entity e ? new EntityStrategy(e) : new FixedTileStrategy(((WorldTile) target).getX(), ((WorldTile) target).getY()), true);
-			if (steps == -1)
+			Route route = RouteFinder.find(getX(), getY(), getPlane(), getSize(), target instanceof GameObject go ? new ObjectStrategy(go) : target instanceof Entity e ? new EntityStrategy(e) : new FixedTileStrategy(((WorldTile) target).getX(), ((WorldTile) target).getY()), true);
+			if (route.getStepCount() == -1)
 				return false;
-			if (steps == 0)
+			if (route.getStepCount() == 0)
 				return DumbRouteFinder.addDumbPathfinderSteps(this, target, getClipType());
-			int[] bufferX = RouteFinder.getLastPathBufferX();
-			int[] bufferY = RouteFinder.getLastPathBufferY();
-			for (int step = steps - 1; step >= 0; step--)
-				if (!addWalkSteps(bufferX[step], bufferY[step], maxStepsCount, true, true))
+			for (int step = route.getStepCount() - 1; step >= 0; step--)
+				if (!addWalkSteps(route.getBufferX()[step], route.getBufferY()[step], maxStepsCount, true, true))
 					break;
 			return true;
 		}
@@ -720,47 +719,56 @@ public abstract class Entity {
 	public boolean ignoreWallsWhenMeleeing() {
 		return false;
 	}
+	
+	private static Set<Object> LOS_NPC_OVERRIDES = new HashSet<>();
+	private static List<TriFunction<Entity, Object, Boolean, Boolean>> LOS_FUNCTION_OVERRIDES = new ArrayList<>();
+	
+	public static void addLOSOverride(int npcId) {
+		LOS_NPC_OVERRIDES.add(npcId);
+	}
+	
+	public static void addLOSOverride(String npcName) {
+		LOS_NPC_OVERRIDES.add(npcName);
+	}
+	
+	public static void addLOSOverrides(int... npcIds) {
+		for (int npcId : npcIds)
+			addLOSOverride(npcId);
+	}
+	
+	public static void addLOSOverrides(String... npcNames) {
+		for (String npcName : npcNames)
+			addLOSOverride(npcName);
+	}
+	
+	public static void addLOSOverride(TriFunction<Entity, Object, Boolean, Boolean> func) {
+		LOS_FUNCTION_OVERRIDES.add(func);
+	}
 
 	public boolean lineOfSightTo(Object target, boolean melee) {
 		WorldTile tile = WorldUtil.targetToTile(target);
 		int targSize = target instanceof Entity ? ((Entity) target).getSize() : 1;
 		if (target instanceof NPC npc) {
+			if (LOS_NPC_OVERRIDES.contains(npc.getId()) || LOS_NPC_OVERRIDES.contains(npc.getName()))
+				return true;
 			switch(npc.getId()) {
-			case 2440:
-			case 2443:
-			case 2446:
-			case 7567:
-			case 3777:
-			case 9712:
-			case 9710:
-			case 706:
-			case 14860:
-			case 14864:
-			case 14858:
-			case 14883:
-			case 2859:
-			case 8709://Desert musician
-			case 8715://Drunken musician
-			case 8723://Elf musician
-			case 8712://Goblin musician
+			case 9712: //dung tutor
+			case 9710: //frem banker
+			case 706: //wizard mizgog
+			case 14860: //Head Farmer Jones
+			case 14864: //Ayleth Beaststalker
+			case 14858: //Alison Elmshaper
+			case 14883: //Marcus Everburn
 				return true;
 			}
 			switch(npc.getName()) {
-			case "Tool leprechaun":
-			case "Xuan":
 			case "Fremennik shipmaster":
-			case "Fishing spot":
-			case "Fishing Spot":
-			case "Cavefish shoal":
-			case "Rocktail shoal":
-			case "Musician":
-			case "Ghostly piper":
-			case "Clan vexillum":
 				return true;
 			}
 		}
-		if (target instanceof Stomp stomp)
-			return stomp.getManager().isAtBossRoom(this.getTile());
+		for (TriFunction<Entity, Object, Boolean, Boolean> func : LOS_FUNCTION_OVERRIDES)
+			if (func.apply(this, target, melee))
+				return true;
 		if (melee && !(target instanceof Entity e ? e.ignoreWallsWhenMeleeing() : false))
 			return World.checkMeleeStep(this, this.getSize(), target, targSize) && World.hasLineOfSight(getMiddleWorldTile(), target instanceof Entity e ? e.getMiddleWorldTile() : tile);
 		return World.hasLineOfSight(getMiddleWorldTile(), target instanceof Entity e ? e.getMiddleWorldTile() : tile);

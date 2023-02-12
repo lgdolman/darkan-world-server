@@ -89,6 +89,7 @@ import com.rs.game.content.tutorialisland.GamemodeSelection;
 import com.rs.game.content.tutorialisland.TutorialIslandController;
 import com.rs.game.content.world.Musician;
 import com.rs.game.engine.book.Book;
+import com.rs.game.engine.cutscene.Cutscene;
 import com.rs.game.engine.dialogue.Conversation;
 import com.rs.game.engine.dialogue.Dialogue;
 import com.rs.game.engine.dialogue.HeadE;
@@ -109,6 +110,7 @@ import com.rs.game.model.entity.interactions.PlayerCombatInteraction;
 import com.rs.game.model.entity.npc.NPC;
 import com.rs.game.model.entity.pathing.Direction;
 import com.rs.game.model.entity.pathing.FixedTileStrategy;
+import com.rs.game.model.entity.pathing.Route;
 import com.rs.game.model.entity.pathing.RouteEvent;
 import com.rs.game.model.entity.pathing.RouteFinder;
 import com.rs.game.model.entity.player.managers.AuraManager;
@@ -1028,6 +1030,11 @@ public class Player extends Entity {
 
 			if (getTickCounter() % FarmPatch.FARMING_TICK == 0)
 				tickFarming();
+			
+			if (getTickCounter() % FarmPatch.FARMING_TICK == 0) {
+				getKeldagrimBrewery().process();
+				getPhasmatysBrewery().process();
+			}
 
 			processTimePlayedTasks();
 			processTimedRestorations();
@@ -3709,17 +3716,15 @@ public class Player extends Entity {
 	}
 
 	public void walkToAndExecute(WorldTile startTile, Runnable event) {
-		int steps = RouteFinder.findRoute(RouteFinder.WALK_ROUTEFINDER, getX(), getY(), getPlane(), getSize(), new FixedTileStrategy(startTile.getX(), startTile.getY()), true);
-		int[] bufferX = RouteFinder.getLastPathBufferX();
-		int[] bufferY = RouteFinder.getLastPathBufferY();
+		Route route = RouteFinder.find(getX(), getY(), getPlane(), getSize(), new FixedTileStrategy(startTile.getX(), startTile.getY()), true);
 		int last = -1;
-		if (steps == -1)
+		if (route.getStepCount() == -1)
 			return;
-		for (int i = steps - 1; i >= 0; i--)
-			if (!addWalkSteps(bufferX[i], bufferY[i], 25, true, true))
+		for (int i = route.getStepCount() - 1; i >= 0; i--)
+			if (!addWalkSteps(route.getBufferX()[i], route.getBufferY()[i], 25, true, true))
 				break;
 		if (last != -1) {
-			WorldTile tile = WorldTile.of(bufferX[last], bufferY[last], getPlane());
+			WorldTile tile = WorldTile.of(route.getBufferX()[last], route.getBufferY()[last], getPlane());
 			getSession().writeToQueue(new MinimapFlag(tile.getXInScene(getSceneBaseChunkId()), tile.getYInScene(getSceneBaseChunkId())));
 		} else
 			getSession().writeToQueue(new MinimapFlag());
@@ -4510,4 +4515,16 @@ public class Player extends Entity {
 		WorldTasks.delay(ticks, task);
 		WorldTasks.delay(ticks+1, () -> unlock());
 	}
+
+	public void playCutscene(Consumer<Cutscene> constructor) {
+		getCutsceneManager().play(new Cutscene() {
+			@Override
+			public void construct(Player player) {
+				constructor.accept(this);
+			}
+		});
+	}
+    public void playCutscene(Cutscene scene) {
+		getCutsceneManager().play(scene);
+    }
 }

@@ -602,10 +602,10 @@ public final class Inventory {
 	});
 	
 	public void coinPouchToInventory(int num) {
-		if (num <= 0)
-			return;
 		if (num > coins)
 			num = (int) coins;
+		if (num <= 0)
+			return;
 		if ((getNumberOf(995) + num) < 0)
 			num = Integer.MAX_VALUE - getNumberOf(995) - 1;
 		coins -= num;
@@ -642,6 +642,7 @@ public final class Inventory {
 	}
 	
 	public int getCoinsAsInt() {
+		long coins = getCoins();
 		if (coins > Integer.MAX_VALUE)
 			return Integer.MAX_VALUE;
 		return (int) coins;
