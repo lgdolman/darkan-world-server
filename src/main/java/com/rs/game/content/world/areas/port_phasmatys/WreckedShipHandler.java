@@ -17,8 +17,10 @@
 package com.rs.game.content.world.areas.port_phasmatys;
 
 import com.rs.game.World;
+import com.rs.game.content.quests.ghostsahoy.MastController;
 import com.rs.game.content.world.AgilityShortcuts;
 import com.rs.game.engine.quest.Quest;
+import com.rs.game.model.entity.Hit;
 import com.rs.game.model.entity.npc.OwnedNPC;
 import com.rs.game.model.object.GameObject;
 import com.rs.lib.Constants;
@@ -32,7 +34,6 @@ import com.rs.utils.Ticks;
 
 @PluginEventHandler
 public class WreckedShipHandler {
-
     public static ObjectClickHandler handleShipwreckLadders = new ObjectClickHandler(new Object[]{5266, 5265}, e -> {
         switch (e.getObjectId()) {
             case 5266 -> {
@@ -55,10 +56,12 @@ public class WreckedShipHandler {
                 }
                 if (e.getObject().getTile().isAt(3615, 3541, 1)) {
                     e.getPlayer().useStairs(828, WorldTile.of(3616, 3541, 2), 1, 2);
+            new MastController(e.getPlayer()).start();
                 }
             }
         }
     });
+
 
     public static ObjectClickHandler handleShipwreckChests = new ObjectClickHandler(new Object[]{5270, 5271, 5272, 5273}, e -> {
         e.getPlayer().getQuestManager().getAttribs(Quest.GHOSTS_AHOY).setI("F1", 0);
@@ -165,8 +168,7 @@ public class WreckedShipHandler {
                 e.getPlayer().sendMessage("It's empty");
             }
             case 5272 -> {
-                if (e.getPlayer().getInventory().containsItem(4273) && Fragment3 >= 0)
-                {
+                if (e.getPlayer().getInventory().containsItem(4273) && Fragment3 >= 0) {
                     e.getPlayer().sendMessage("A Lobster jumps out of the chest. Some paper appears to have fallen from it's mouth.");
                     OwnedNPC lobster = new OwnedNPC(e.getPlayer(), 1693, WorldTile.of(3611, 3543, 0), false);
                     lobster.setIgnoreDocile(true);
@@ -174,14 +176,13 @@ public class WreckedShipHandler {
                     lobster.setForceAggroDistance(64);
                     lobster.setIntelligentRouteFinder(true);
                     lobster.setTarget(e.getPlayer());
-                    lobster.sendDrop(e.getPlayer(), new Item(4274));
+                    lobster.sendDrop(e.getPlayer(), new Item(4274)); //TODO drop on death
                     GameObject openedChest = new GameObject(5271, e.getObject().getType(), e.getObject().getRotation(), e.getObject().getX(), e.getObject().getY(), e.getObject().getPlane());
                     e.getPlayer().faceObject(openedChest);
                     e.getPlayer().setNextAnimation(new Animation(536));
                     e.getPlayer().lock(2);
                     World.spawnObjectTemporary(openedChest, Ticks.fromSeconds(180));
-                }
-                else {
+                } else {
                     e.getPlayer().sendMessage("It's locked.");
                 }
             }
@@ -191,122 +192,159 @@ public class WreckedShipHandler {
         switch (e.getObjectId()) {
             case 5285 -> {
                 if (e.getOption().equalsIgnoreCase("Cross")) {
-                    //TODO fix logwalk and replace
-                    //Origin 3605 3546 1
-                    //Destination 3605 3547 0
-                    e.getPlayer().useStairs(3844, WorldTile.of(3605, 3547, 0), 1, 3);
+                    e.getPlayer().useStairs(-1, WorldTile.of(3605, 3548, 0), 1, 3);
                 }
             }
             case 5286 -> {
                 if (e.getOption().equalsIgnoreCase("Cross")) {
-                    //Origin 3605 3547 0
-                    //Destination 3605 3546 1
-                    e.getPlayer().useStairs(3844, WorldTile.of(3605, 3546, 1), 1, 3);
+                    e.getPlayer().useStairs(-1, WorldTile.of(3605, 3545, 1), 1, 3);
                 }
             }
         }
     });
+
+    public static ObjectClickHandler handleMast= new ObjectClickHandler(new Object[]{5274}, e -> {
+
+        if (e.getOption().equalsIgnoreCase("Search")) {
+            new MastController(e.getPlayer()).start();
+            if(MastController.windSpeed){
+                e.getPlayer().sendMessage("The wind is too high!");
+            }
+            else {
+                e.getPlayer().sendMessage("The wind is low");
+            }
+        }
+    });
+
     public static ObjectClickHandler handleShipwreckRocks = new ObjectClickHandler(new Object[]{5269}, e -> {
         switch (e.getObjectId()) {
             case 5269 -> {
                 //X Movements
                 if (e.getObject().getTile().isAt(3604, 3550, 0)) {
-                    if(Utils.random(20)<=2){
+                    if (Utils.random(20) <= 2) {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
-                        e.getPlayer().sendMessage("You fail to make it to the other side.");
-                        e.getPlayer().drainRunEnergy(5);                    }
-                    else {
+                        e.getPlayer().sendMessage("You fail to make the jump.");
+                        e.getPlayer().drainRunEnergy(5);
+                        e.getPlayer().applyHit(new Hit(Utils.random(2,6), Hit.HitLook.TRUE_DAMAGE));
+                    } else {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
                         e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
                         e.getPlayer().drainRunEnergy(5);
                     }
                 }
                 if (e.getObject().getTile().isAt(3602, 3550, 0)) {
-                    if(Utils.random(20)<=2){
+                    if (Utils.random(20) <= 2) {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
-                        e.getPlayer().sendMessage("You fail to make it to the other side.");
+                        e.getPlayer().sendMessage("You fail to make the jump.");
                         e.getPlayer().drainRunEnergy(5);
-                    }
-                    else {
+                        e.getPlayer().applyHit(new Hit(Utils.random(2,6), Hit.HitLook.TRUE_DAMAGE));
+                    } else {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
                         e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
                         e.getPlayer().drainRunEnergy(5);
                     }
                 }
                 if (e.getObject().getTile().isAt(3599, 3552, 0)) {
-                    if(Utils.random(20)<=2){
+                    if (Utils.random(20) <= 2) {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
-                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
-                    else {
+                        e.getPlayer().sendMessage("You fail to make the jump.");
+                        e.getPlayer().drainRunEnergy(5);
+                        e.getPlayer().applyHit(new Hit(Utils.random(2,6), Hit.HitLook.TRUE_DAMAGE));
+                    } else {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
                         e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
-                        e.getPlayer().drainRunEnergy(5);}
+                        e.getPlayer().drainRunEnergy(5);
+                    }
                 }
                 if (e.getObject().getTile().isAt(3597, 3552, 0)) {
-                    if(Utils.random(20)<=2){
+                    if (Utils.random(20) <= 2) {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
-                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
-                    else {
+                        e.getPlayer().sendMessage("You fail to make the jump.");
+                        e.getPlayer().drainRunEnergy(5);
+                        e.getPlayer().applyHit(new Hit(Utils.random(2,6), Hit.HitLook.TRUE_DAMAGE));
+                    } else {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
                         e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
-                        e.getPlayer().drainRunEnergy(5);}
+                        e.getPlayer().drainRunEnergy(5);
+                    }
                 }
                 if (e.getObject().getTile().isAt(3599, 3564, 0)) {
-                    if(Utils.random(20)<=2){
+                    if (Utils.random(20) <= 2) {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
-                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
-                    else {
+                        e.getPlayer().sendMessage("You fail to make the jump.");
+                        e.getPlayer().drainRunEnergy(5);
+                        e.getPlayer().applyHit(new Hit(Utils.random(2,6), Hit.HitLook.TRUE_DAMAGE));
+                    } else {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
                         e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
-                        e.getPlayer().drainRunEnergy(5);}
+                        e.getPlayer().drainRunEnergy(5);
+                    }
                 }
                 if (e.getObject().getTile().isAt(3601, 3564, 0)) {
-                    if(Utils.random(20)<=2){
+                    if (Utils.random(20) <= 2) {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
-                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
-                    else {
+                        e.getPlayer().sendMessage("You fail to make the jump.");
+                        e.getPlayer().drainRunEnergy(5);
+                        e.getPlayer().applyHit(new Hit(Utils.random(2,6), Hit.HitLook.TRUE_DAMAGE));
+                    } else {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(e.getPlayer().getX() > e.getObject().getX() ? -4 : 4, 0, 0), 769, 1);
                         e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
-                        e.getPlayer().drainRunEnergy(5);}
+                        e.getPlayer().drainRunEnergy(5);
+                    }
                 }
                 //Y Movements
                 if (e.getObject().getTile().isAt(3595, 3554, 0)) {
-                    if(Utils.random(20)<=2){
+                    if (Utils.random(20) <= 2) {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
-                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
-                    else {
+                        e.getPlayer().sendMessage("You fail to make the jump.");
+                        e.getPlayer().drainRunEnergy(5);
+                        e.getPlayer().applyHit(new Hit(Utils.random(2,6), Hit.HitLook.TRUE_DAMAGE));
+                    } else {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, e.getPlayer().getY() > e.getObject().getY() ? -4 : 4, 0), 769, 1);
                         e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
-                        e.getPlayer().drainRunEnergy(5);}
+                        e.getPlayer().drainRunEnergy(5);
+                    }
                 }
                 if (e.getObject().getTile().isAt(3595, 3556, 0)) {
-                    if(Utils.random(20)<=2){
+                    if (Utils.random(20) <= 2) {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
-                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
-                    else {
+                        e.getPlayer().sendMessage("You fail to make the jump.");
+                        e.getPlayer().drainRunEnergy(5);
+                        e.getPlayer().applyHit(new Hit(Utils.random(2,6), Hit.HitLook.TRUE_DAMAGE));
+                    } else {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, e.getPlayer().getY() > e.getObject().getY() ? -4 : 4, 0), 769, 1);
                         e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
-                        e.getPlayer().drainRunEnergy(5);}
+                        e.getPlayer().drainRunEnergy(5);
+                    }
                 }
                 if (e.getObject().getTile().isAt(3597, 3559, 0)) {
-                    if(Utils.random(20)<=2){
+                    if (Utils.random(20) <= 2) {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
-                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
-                    else {
+                        e.getPlayer().sendMessage("You fail to make the jump.");
+                        e.getPlayer().drainRunEnergy(5);
+                        e.getPlayer().applyHit(new Hit(Utils.random(2,6), Hit.HitLook.TRUE_DAMAGE));
+                    } else {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, e.getPlayer().getY() > e.getObject().getY() ? -4 : 4, 0), 769, 1);
                         e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
-                        e.getPlayer().drainRunEnergy(5);}
+                        e.getPlayer().drainRunEnergy(5);
+                    }
                 }
+
                 if (e.getObject().getTile().isAt(3597, 3561, 0)) {
-                    if(Utils.random(20)<=2){
+                    if (Utils.random(20) <= 2) {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, 0, 0), 760, 1);
-                        e.getPlayer().sendMessage("You fail to make it to the other side.");                    }
-                    else {
+                        e.getPlayer().sendMessage("You fail to make the jump.");
+                        e.getPlayer().drainRunEnergy(5);
+                        e.getPlayer().applyHit(new Hit(Utils.random(2,6), Hit.HitLook.TRUE_DAMAGE));
+                    } else {
                         AgilityShortcuts.forceMovement(e.getPlayer(), e.getPlayer().transform(0, e.getPlayer().getY() > e.getObject().getY() ? -4 : 4, 0), 769, 1);
                         e.getPlayer().getSkills().addXp(Constants.AGILITY, 3);
-                        e.getPlayer().drainRunEnergy(5);}
+                        e.getPlayer().drainRunEnergy(5);
+                    }
                 }
             }
         }
     });
 }
+
+

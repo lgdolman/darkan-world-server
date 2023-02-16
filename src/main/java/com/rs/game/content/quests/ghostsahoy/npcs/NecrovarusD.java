@@ -85,6 +85,7 @@ public class NecrovarusD extends Conversation {
 
             });
         }
+        /*
         if(player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 1) {
             addPlayer(HeadE.CALM_TALK, "I must speak with you on behalf of Velorina.");
             addNPC(npcId, HeadE.ANGRY, "You dare to speak that name in this place?????");
@@ -100,6 +101,7 @@ public class NecrovarusD extends Conversation {
             addPlayer(HeadE.CALM_TALK, "Please, listen to me-");
             addNPC(npcId, HeadE.ANGRY, "No – listen to me. Go from this place and do not return, or I will remove your head.;");
         }
+         */
 
     }
 }

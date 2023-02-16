@@ -40,7 +40,7 @@ public class VelorinaD extends Conversation {
             addOptions("What would you like to say?", new Options() {
                 @Override
                 public void create() {
-                    if (player.isQuestComplete(Quest.GHOSTS_AHOY)) {
+                    if (player.getQuestManager().notStarted(Quest.GHOSTS_AHOY) || player.isQuestComplete(Quest.GHOSTS_AHOY)) {
                         option("I thought you were going to pass over to the next world.", new Dialogue()
                                 .addPlayer(HeadE.CONFUSED, "I thought you were going to pass over to the next world.")
                                 .addNPC(npcId, HeadE.CALM_TALK, "All in good time, " + player.getDisplayName() + ". We stand forever in your debt, and will certainly put in a good word for you when we pass over."));
@@ -69,7 +69,7 @@ public class VelorinaD extends Conversation {
                                     });
                         }
                     } else {
-                        if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 0) {
+                        if (player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 1) { //Set to 0
                             addNPC(npcId, HeadE.SAD_CRYING, "Take pity on me, please – eternity stretches out before me and I am helpless in its grasp.");
                             addPlayer(HeadE.CONFUSED, "Why, what is the matter?");
                             addNPC(npcId, HeadE.CALM, " Oh, I'm sorry – I was just wailing out loud. I didn't mean to scare you.");

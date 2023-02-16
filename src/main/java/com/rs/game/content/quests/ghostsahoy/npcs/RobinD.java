@@ -1,8 +1,6 @@
 package com.rs.game.content.quests.ghostsahoy.npcs;
 
 public class RobinD {
-    private static int npcId = 9999;
-
 }
 
 /*

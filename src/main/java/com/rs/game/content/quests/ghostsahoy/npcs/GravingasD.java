@@ -53,7 +53,7 @@ public class GravingasD extends Conversation {
 		super(player);
 		if (ghostEquipped(player))
 		{
-			if(player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 0) {
+			if(player.getQuestManager().notStarted(Quest.GHOSTS_AHOY) || player.getQuestManager().getStage(Quest.GHOSTS_AHOY) == 0) {
 				addNPC(npcId, HeadE.FRUSTRATED, "Will you join with me and protest against the evil ban of Necrovarus and his disciples?");
 				addPlayer(HeadE.CONFUSED, "I'm sorry, I don't really think I should get involved.");
 				addNPC(npcId, HeadE.FRUSTRATED, "Ah, the youth of today - so apathetic to politics.");
